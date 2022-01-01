@@ -48,6 +48,10 @@ pipeline {
 		}
 
 		stage('Deploy') {
+			environment {
+				PYPI=credentials("pypi-pdme")
+			}
+
 			when {
 				buildingTag()
 			}
