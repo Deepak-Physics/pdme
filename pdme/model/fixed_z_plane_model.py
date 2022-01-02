@@ -29,10 +29,10 @@ class FixedZPlaneModel(Model):
 		self.xmax = xmax
 		self.ymin = ymin
 		self.ymax = ymax
-		self.n = n
+		self._n = n
 
 	def __repr__(self) -> str:
-		return f'FixedZPlaneModel({self.z}, {self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.n})'
+		return f'FixedZPlaneModel({self.z}, {self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.n()})'
 
 	def point_length(self) -> int:
 		'''
@@ -40,6 +40,9 @@ class FixedZPlaneModel(Model):
 			With some frequency w, there are four degrees of freedom: (pz, sx, sy, w).
 		'''
 		return 4
+
+	def n(self) -> int:
+		return self._n
 
 	def v_for_point_at_dot(self, dot: DotMeasurement, pt: numpy.ndarray) -> float:
 		p = numpy.array([0, 0, pt[0]])

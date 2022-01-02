@@ -1,9 +1,17 @@
 import numpy
 import scipy.optimize
+from pdme.model import Model
+from pdme.measurement import DotMeasurement
+from typing import Sequence
 
 
-def sol(self, initial_dipole=(0.1, 0.1, 0.1), initial_position=(.1, .1, .1), initial_frequency=1, use_root=True):
-	initial = numpy.tile(numpy.concatenate((initial_dipole, initial_position, initial_frequency), axis=None), self.n)
+def sol(model: Model, dots: Sequence[DotMeasurement], initial_pt=None):
+	if initial_pt is None:
+		initial = numpy.tile(.1, model.n() * model.point_length())
+	else:
+		if len(initial_pt) != model.point_length():
+			raise ValueError(f"The initial point {initial_pt} does not have the model's expected length: {model.point_length()}")
+		initial = numpy.tile(initial_pt, model.n())
 
-	result = scipy.optimize.least_squares(self.costs(), initial, jac=self.jac(), ftol=1e-15, gtol=3e-16)
+	result = scipy.optimize.least_squares(model.costs(dots), initial, jac=model.jac(dots), ftol=1e-15, gtol=3e-16)
 	return result

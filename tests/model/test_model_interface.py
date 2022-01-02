@@ -9,6 +9,12 @@ def test_model_interface_not_implemented_point_length():
 		model.point_length()
 
 
+def test_model_interface_not_implemented_point_n():
+	model = Model()
+	with pytest.raises(NotImplementedError):
+		model.n()
+
+
 def test_model_interface_not_implemented_cost():
 	model = Model()
 

@@ -12,6 +12,9 @@ class Model():
 	def point_length(self) -> int:
 		raise NotImplementedError
 
+	def n(self) -> int:
+		raise NotImplementedError
+
 	def v_for_point_at_dot(self, dot: DotMeasurement, pt: numpy.ndarray) -> float:
 		raise NotImplementedError
 
