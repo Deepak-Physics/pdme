@@ -1,4 +1,5 @@
 import numpy
+import scipy.optimize
 from typing import Callable, Sequence
 from pdme.measurement import DotMeasurement
 import logging
@@ -72,3 +73,14 @@ class Model():
 			return numpy.array([self.jac_for_dot(dot, pts) for dot in dots])
 
 		return jac_to_return
+
+	def solve(self, dots: Sequence[DotMeasurement], initial_pt: numpy.ndarray = None, bounds=(-numpy.inf, numpy.inf)) -> scipy.optimize.OptimizeResult:
+		if initial_pt is None:
+			initial = numpy.tile(.1, self.n() * self.point_length())
+		else:
+			if len(initial_pt) != self.point_length():
+				raise ValueError(f"The initial point {initial_pt} does not have the model's expected length: {self.point_length()}")
+			initial = numpy.tile(initial_pt, self.n())
+
+		result = scipy.optimize.least_squares(self.costs(dots), initial, jac=self.jac(dots), ftol=1e-15, gtol=3e-16, bounds=bounds)
+		return result

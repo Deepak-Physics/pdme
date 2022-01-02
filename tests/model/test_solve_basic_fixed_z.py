@@ -3,7 +3,6 @@ from pdme.measurement import OscillatingDipole, OscillatingDipoleArrangement
 import logging
 import numpy
 import itertools
-import pdme.solver
 import pytest
 
 
@@ -12,7 +11,7 @@ def test_fixed_z_plane_model_solve_error_initial():
 	model = FixedZPlaneModel(4, -10, 10, -10, 10, 1)
 
 	with pytest.raises(ValueError):
-		pdme.solver.sol(model, [], initial_pt=[1, 2])
+		model.solve([], initial_pt=[1, 2])
 
 
 def test_fixed_z_plane_model_solve_basic():
@@ -28,13 +27,13 @@ def test_fixed_z_plane_model_solve_basic():
 	# from the dipole, these are the unspecified variables in ((0, 0, pz), (sx, sy, 4), w)
 	expected_solution = [2, 1, 2, 1]
 
-	result = pdme.solver.sol(model, dots)
+	result = model.solve(dots)
 	logging.info(result)
 	assert result.success
 	numpy.testing.assert_allclose(result.x, expected_solution, err_msg="Even well specified problem solution was wrong.", rtol=1e-6, atol=1e-11)
 
 	# Do it again with an initial point
-	result = pdme.solver.sol(model, dots, initial_pt=[2, 2, 2, 2])
+	result = model.solve(dots, initial_pt=[2, 2, 2, 2])
 	logging.info(result)
 	assert result.success
 	numpy.testing.assert_allclose(result.x, expected_solution, err_msg="Even well specified problem solution was wrong.", rtol=1e-6, atol=1e-11)
