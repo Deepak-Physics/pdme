@@ -1,5 +1,5 @@
 import numpy
-from pdme.model import Model
+from pdme.model.model import Model
 from pdme.measurement import DotMeasurement
 
 
