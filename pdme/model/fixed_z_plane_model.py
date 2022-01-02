@@ -51,7 +51,7 @@ class FixedZPlaneModel(Model):
 		b = (1 / numpy.pi) * (w / (w**2 + dot.f**2))
 		return alpha**2 * b
 
-	def jac_for_point_at_dot(self, dot: DotMeasurement, pt: numpy.ndarray) -> float:
+	def jac_for_point_at_dot(self, dot: DotMeasurement, pt: numpy.ndarray) -> numpy.ndarray:
 		p = numpy.array([0, 0, pt[0]])
 		s = numpy.array([pt[1], pt[2], self.z])
 		w = pt[3]
