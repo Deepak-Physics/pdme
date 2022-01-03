@@ -13,7 +13,7 @@ def test_unrestricted_model_cost_and_jac_single():
 	model = UnrestrictedModel(1)
 	measured_v = 0.000191292  # from dipole with p=(0, 0, 2) at (1, 2, 4) with w = 1
 	dot = DotMeasurement(measured_v, (1, 2, 0), 5)
-	pt = [0, 0, 2, 2, 2, 4, 2]
+	pt = numpy.array([0, 0, 2, 2, 2, 4, 2])
 
 	cost_function = model.costs([dot])
 
