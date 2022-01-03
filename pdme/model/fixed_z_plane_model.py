@@ -1,4 +1,7 @@
 import numpy
+from dataclasses import dataclass
+from typing import Tuple
+
 from pdme.model.model import Model
 from pdme.measurement import DotMeasurement
 
@@ -73,3 +76,38 @@ class FixedZPlaneModel(Model):
 		w_div = alpha**2 * (1 / numpy.pi) * ((f2 - w2) / ((f2 + w2)**2))
 
 		return numpy.concatenate((p_divs, r_divs, w_div), axis=None)
+
+
+@dataclass
+class FixedZPlaneDiscretisation():
+	'''
+	Representation of a discretisation of a FixedZPlaneModel
+
+	Parameters
+	----------
+	model : FixedZPlaneModel
+		The parent model of the discretisation.
+	num_x : int
+		The number of partitions of the x axis.
+	num_y : int
+		The number of partitions of the y axis.
+	'''
+	model: FixedZPlaneModel
+	num_x: int
+	num_y: int
+
+	def __post_init__(self):
+		self.cell_count = self.num_x * self.num_y
+		self.x_step = (self.model.xmax - self.model.xmin) / self.num_x
+		self.y_step = (self.model.ymax - self.model.ymin) / self.num_y
+
+	def bounds(self, index: Tuple[float, float]) -> Tuple:
+		xi, yi = index
+
+		# For this model, a point is (pz, sx, sy, w).
+		# We want to keep pz and w bounded, and restrict sx and sy.
+		return ([-numpy.inf, xi * self.x_step + self.model.xmin, yi * self.y_step + self.model.ymin, -numpy.inf], [numpy.inf, (xi + 1) * self.x_step + self.model.xmin, (yi + 1) * self.y_step + self.model.ymin, numpy.inf])
+
+	def all_indices(self) -> numpy.ndindex:
+		# see https://github.com/numpy/numpy/issues/20706 for why this is a mypy problem.
+		return numpy.ndindex((self.num_x, self.num_y))  # type:ignore
