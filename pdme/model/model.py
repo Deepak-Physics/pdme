@@ -83,6 +83,6 @@ class Model():
 				raise ValueError(f"The initial point {initial_pt} does not have the model's expected length: {self.point_length()}")
 			initial = numpy.tile(initial_pt, self.n())
 
-		result = scipy.optimize.least_squares(self.costs(dots), initial, jac=self.jac(dots), ftol=1e-15, gtol=3e-16, bounds=bounds)
+		result = scipy.optimize.least_squares(self.costs(dots), initial, jac=self.jac(dots), ftol=1e-15, gtol=3e-16, xtol=None, bounds=bounds)
 		result.normalised_x = pdme.util.normalise_point_list(result.x, self.point_length())
 		return result

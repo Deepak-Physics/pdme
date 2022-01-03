@@ -13,7 +13,7 @@ def test_unrestricted_model_solve_basic():
 	))
 	dots = dipoles.get_dot_measurements(dot_inputs)
 
-	model = UnrestrictedModel(1)
+	model = UnrestrictedModel(1, -1, 1, -1, 1, -1, 1)
 
 	# from the dipole, these are the unspecified variables in ((0, 0, 2), (1, 2, 4), 1)
 	expected_solution = [0.2, 0, 2, 1, 2, 4, 1]

@@ -1,6 +1,7 @@
 import numpy
 from dataclasses import dataclass
-from typing import Tuple
+from typing import Tuple, Sequence
+import scipy.optimize
 
 from pdme.model.model import Model
 from pdme.measurement import DotMeasurement
@@ -81,7 +82,8 @@ class FixedZPlaneModel(Model):
 @dataclass
 class FixedZPlaneDiscretisation():
 	'''
-	Representation of a discretisation of a FixedZPlaneModel
+	Representation of a discretisation of a FixedZPlaneModel.
+	Also captures a rough maximum value of dipole.
 
 	Parameters
 	----------
@@ -95,19 +97,27 @@ class FixedZPlaneDiscretisation():
 	model: FixedZPlaneModel
 	num_x: int
 	num_y: int
+	max_pz: int
 
 	def __post_init__(self):
 		self.cell_count = self.num_x * self.num_y
 		self.x_step = (self.model.xmax - self.model.xmin) / self.num_x
 		self.y_step = (self.model.ymax - self.model.ymin) / self.num_y
 
-	def bounds(self, index: Tuple[float, float]) -> Tuple:
+	def bounds(self, index: Tuple[float, float]) -> Tuple[numpy.ndarray, numpy.ndarray]:
 		xi, yi = index
 
 		# For this model, a point is (pz, sx, sy, w).
-		# We want to keep pz and w bounded, and restrict sx and sy.
-		return ([-numpy.inf, xi * self.x_step + self.model.xmin, yi * self.y_step + self.model.ymin, -numpy.inf], [numpy.inf, (xi + 1) * self.x_step + self.model.xmin, (yi + 1) * self.y_step + self.model.ymin, numpy.inf])
+		# We want to keep w bounded, and restrict sx and sy based on step and pz generally.
+		return (numpy.array((-self.max_pz, xi * self.x_step + self.model.xmin, yi * self.y_step + self.model.ymin, -numpy.inf)), numpy.array((self.max_pz, (xi + 1) * self.x_step + self.model.xmin, (yi + 1) * self.y_step + self.model.ymin, numpy.inf)))
 
 	def all_indices(self) -> numpy.ndindex:
 		# see https://github.com/numpy/numpy/issues/20706 for why this is a mypy problem.
 		return numpy.ndindex((self.num_x, self.num_y))  # type:ignore
+
+	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple[float, float]) -> scipy.optimize.OptimizeResult:
+		bounds = self.bounds(index)
+		sx_mean = (bounds[0][1] + bounds[1][1]) / 2
+		sy_mean = (bounds[0][2] + bounds[1][2]) / 2
+		# I don't care about the typing here at the moment.
+		return self.model.solve(dots, initial_pt=numpy.array(.1, sx_mean, sy_mean, .1), bounds=bounds)  # type: ignore
