@@ -120,4 +120,4 @@ class FixedZPlaneDiscretisation():
 		sx_mean = (bounds[0][1] + bounds[1][1]) / 2
 		sy_mean = (bounds[0][2] + bounds[1][2]) / 2
 		# I don't care about the typing here at the moment.
-		return self.model.solve(dots, initial_pt=numpy.array(.1, sx_mean, sy_mean, .1), bounds=bounds)  # type: ignore
+		return self.model.solve(dots, initial_pt=numpy.array((.1, sx_mean, sy_mean, .1)), bounds=bounds)  # type: ignore

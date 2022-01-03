@@ -1,4 +1,4 @@
-from pdme.model.fixed_z_plane_model import FixedZPlaneModel, FixedZPlaneDiscretisation
+from pdme.model.unrestricted_model import UnrestrictedModel, UnrestrictedDiscretisation
 from pdme.measurement import OscillatingDipole, OscillatingDipoleArrangement
 import itertools
 import logging
@@ -11,8 +11,8 @@ def main():
 	))
 	dots = dipoles.get_dot_measurements(dot_inputs)
 
-	model = FixedZPlaneModel(4, -10, 10, -10, 10, 1)
-	discretisation = FixedZPlaneDiscretisation(model, 2, 5, 10)
+	model = UnrestrictedModel(-10, 10, -10, 10, -10, 10, 1)
+	discretisation = UnrestrictedDiscretisation(model, 4, 4, 4, 10)
 	count = 0
 	success = 0
 	for index in discretisation.all_indices():
