@@ -3,14 +3,18 @@ import operator
 
 
 # flips px, py, pz
-SIGN_ARRAY = numpy.array((-1, -1, -1, 1, 1, 1, 1))
-
+SIGN_ARRAY_7 = numpy.array((-1, -1, -1, 1, 1, 1, 1))
+SIGN_ARRAY_4 = numpy.array((-1, 1, 1, 1))
 
 def flip_chunk_to_positive_px(pt: numpy.ndarray) -> numpy.ndarray:
 	if pt[0] > 0:
 		return pt
 	else:
-		return SIGN_ARRAY * pt
+		# godawful hack.
+		if len(pt) == 7:
+			return SIGN_ARRAY_7 * pt
+		elif len(pt) == 4:
+			return SIGN_ARRAY_4 * pt
 
 
 def normalise_point_list(pts: numpy.ndarray, pt_length) -> numpy.ndarray:

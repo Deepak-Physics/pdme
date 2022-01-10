@@ -89,35 +89,43 @@ class FixedZPlaneDiscretisation():
 	----------
 	model : FixedZPlaneModel
 		The parent model of the discretisation.
+	num_pz: int
+		The number of partitions of pz.
 	num_x : int
 		The number of partitions of the x axis.
 	num_y : int
 		The number of partitions of the y axis.
 	'''
 	model: FixedZPlaneModel
+	num_pz: int
 	num_x: int
 	num_y: int
 	max_pz: int
 
 	def __post_init__(self):
 		self.cell_count = self.num_x * self.num_y
+		self.pz_step = (2 * self.max_pz) / self.num_pz
 		self.x_step = (self.model.xmax - self.model.xmin) / self.num_x
 		self.y_step = (self.model.ymax - self.model.ymin) / self.num_y
 
-	def bounds(self, index: Tuple[float, float]) -> Tuple[numpy.ndarray, numpy.ndarray]:
-		xi, yi = index
+	def bounds(self, index: Tuple[float, float, float]) -> Tuple[numpy.ndarray, numpy.ndarray]:
+		pzi, xi, yi = index
 
 		# For this model, a point is (pz, sx, sy, w).
-		# We want to keep w bounded, and restrict sx and sy based on step and pz generally.
-		return (numpy.array((-self.max_pz, xi * self.x_step + self.model.xmin, yi * self.y_step + self.model.ymin, -numpy.inf)), numpy.array((self.max_pz, (xi + 1) * self.x_step + self.model.xmin, (yi + 1) * self.y_step + self.model.ymin, numpy.inf)))
+		# We want to keep w bounded, and restrict pz, sx and sy based on step.
+		return (
+			numpy.array((pzi * self.pz_step - self.max_pz, xi * self.x_step + self.model.xmin, yi * self.y_step + self.model.ymin, -numpy.inf)),
+			numpy.array(((pzi + 1) * self.pz_step - self.max_pz, (xi + 1) * self.x_step + self.model.xmin, (yi + 1) * self.y_step + self.model.ymin, numpy.inf))
+		)
 
 	def all_indices(self) -> numpy.ndindex:
 		# see https://github.com/numpy/numpy/issues/20706 for why this is a mypy problem.
-		return numpy.ndindex((self.num_x, self.num_y))  # type:ignore
+		return numpy.ndindex((self.num_pz, self.num_x, self.num_y))  # type:ignore
 
-	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple[float, float]) -> scipy.optimize.OptimizeResult:
+	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple[float, float, float]) -> scipy.optimize.OptimizeResult:
 		bounds = self.bounds(index)
+		pz_mean = (bounds[0][0] + bounds[1][0]) / 2
 		sx_mean = (bounds[0][1] + bounds[1][1]) / 2
 		sy_mean = (bounds[0][2] + bounds[1][2]) / 2
 		# I don't care about the typing here at the moment.
-		return self.model.solve(dots, initial_pt=numpy.array((.1, sx_mean, sy_mean, .1)), bounds=bounds)  # type: ignore
+		return self.model.solve(dots, initial_pt=numpy.array((pz_mean, sx_mean, sy_mean, .1)), bounds=bounds)  # type: ignore

@@ -79,6 +79,12 @@ class UnrestrictedDiscretisation():
 	----------
 	model : UnrestrictedModel
 		The parent model of the discretisation.
+	num_px: int
+		The number of partitions of the px.
+	num_py: int
+		The number of partitions of the py.
+	num_pz: int
+		The number of partitions of pz.
 	num_x : int
 		The number of partitions of the x axis.
 	num_y : int
@@ -89,6 +95,9 @@ class UnrestrictedDiscretisation():
 		The maximum p coordinate in any direction.
 	'''
 	model: UnrestrictedModel
+	num_px: int
+	num_py: int
+	num_pz: int
 	num_x: int
 	num_y: int
 	num_z: int
@@ -99,20 +108,23 @@ class UnrestrictedDiscretisation():
 		self.x_step = (self.model.xmax - self.model.xmin) / self.num_x
 		self.y_step = (self.model.ymax - self.model.ymin) / self.num_y
 		self.z_step = (self.model.zmax - self.model.zmin) / self.num_z
+		self.px_step = 2 * self.max_p / self.num_px
+		self.py_step = 2 * self.max_p / self.num_py
+		self.pz_step = 2 * self.max_p / self.num_pz
 
-	def bounds(self, index: Tuple[float, float, float]) -> Tuple:
-		xi, yi, zi = index
+	def bounds(self, index: Tuple[float, float, float, float, float, float]) -> Tuple:
+		pxi, pyi, pzi, xi, yi, zi = index
 
 		# For this model, a point is (px, py, pz, sx, sx, sy, w).
-		# We want to keep w unbounded, restrict sx, sy, sz based on step and all of p generally.
+		# We want to keep w unbounded, restrict sx, sy, sz, px and py based on step.
 		return (
 			[
-				-self.max_p, -self.max_p, -self.max_p,
+				pxi * self.px_step - self.max_p, pyi * self.py_step - self.max_p, pzi * self.pz_step - self.max_p,
 				xi * self.x_step + self.model.xmin, yi * self.y_step + self.model.ymin, zi * self.z_step + self.model.zmin,
 				-numpy.inf
 			],
 			[
-				self.max_p, self.max_p, self.max_p,
+				(pxi + 1) * self.px_step - self.max_p, (pyi + 1) * self.py_step - self.max_p, (pzi + 1) * self.pz_step - self.max_p,
 				(xi + 1) * self.x_step + self.model.xmin, (yi + 1) * self.y_step + self.model.ymin, (zi + 1) * self.z_step + self.model.zmin,
 				numpy.inf
 			]
@@ -120,11 +132,14 @@ class UnrestrictedDiscretisation():
 
 	def all_indices(self) -> numpy.ndindex:
 		# see https://github.com/numpy/numpy/issues/20706 for why this is a mypy problem.
-		return numpy.ndindex((self.num_x, self.num_y, self.num_z))  # type:ignore
+		return numpy.ndindex((self.num_px, self.num_py, self.num_pz, self.num_x, self.num_y, self.num_z))  # type:ignore
 
-	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple[float, float, float]) -> scipy.optimize.OptimizeResult:
+	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple[float, float, float, float, float, float]) -> scipy.optimize.OptimizeResult:
 		bounds = self.bounds(index)
+		px_mean = (bounds[0][0] + bounds[1][0]) / 2
+		py_mean = (bounds[0][1] + bounds[1][1]) / 2
+		pz_mean = (bounds[0][2] + bounds[1][2]) / 2
 		sx_mean = (bounds[0][3] + bounds[1][3]) / 2
 		sy_mean = (bounds[0][4] + bounds[1][4]) / 2
 		sz_mean = (bounds[0][5] + bounds[1][5]) / 2
-		return self.model.solve(dots, initial_pt=numpy.array([.1, .1, .1, sx_mean, sy_mean, sz_mean, .1]), bounds=bounds)
+		return self.model.solve(dots, initial_pt=numpy.array([px_mean, py_mean, pz_mean, sx_mean, sy_mean, sz_mean, .1]), bounds=bounds)

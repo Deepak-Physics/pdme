@@ -9,7 +9,7 @@ def get_a_result(discretisation, dots, index):
 	return (index, discretisation.solve_for_index(dots, index))
 
 def main():
-	dipoles = OscillatingDipoleArrangement([OscillatingDipole((0, 0, 2), (1, 2, 4), 1)])
+	dipoles = OscillatingDipoleArrangement([OscillatingDipole((.5, 0, 2), (1, 2, 3), 1)])
 	dot_inputs = list(itertools.chain.from_iterable(
 		(([1, 2, 0], f), ([1, 1, 0], f), ([2, 1, 0], f), ([2, 2, 0], f)) for f in numpy.arange(1, 10, 2)
 	))

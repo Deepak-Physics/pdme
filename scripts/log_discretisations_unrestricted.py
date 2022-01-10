@@ -2,7 +2,12 @@ from pdme.model.unrestricted_model import UnrestrictedModel, UnrestrictedDiscret
 from pdme.measurement import OscillatingDipole, OscillatingDipoleArrangement
 import itertools
 import logging
+import multiprocessing
 import numpy
+
+
+def get_a_result(discretisation, dots, index):
+	return (index, discretisation.solve_for_index(dots, index))
 
 def main():
 	dipoles = OscillatingDipoleArrangement([OscillatingDipole((0, 0, 2), (1, 2, 4), 1)])
@@ -11,20 +16,24 @@ def main():
 	))
 	dots = dipoles.get_dot_measurements(dot_inputs)
 
-	model = UnrestrictedModel(-10, 10, -10, 10, -10, 10, 1)
-	discretisation = UnrestrictedDiscretisation(model, 4, 4, 4, 10)
+	model = UnrestrictedModel(-10, 10, -10, 10, 0, 10, 1)
+	discretisation = UnrestrictedDiscretisation(model, 6, 6, 6, 5, 5, 5, 10)
+	
+	with multiprocessing.Pool(multiprocessing.cpu_count()-1 or 1) as pool:
+		results = pool.starmap(get_a_result, zip(itertools.repeat(discretisation), itertools.repeat(dots), discretisation.all_indices()))
+	
 	count = 0
 	success = 0
-	for index in discretisation.all_indices():
+	for idx, result in results:
 		count += 1
-		result = discretisation.solve_for_index(dots, index)
-		if result.success and result.cost <= 1e-10:
+		if result.success and result.cost <= 1e-10 and numpy.linalg.norm(result.x[0:3]) < 10:
 			answer = result.normalised_x
 			success += 1
 		else:
 			answer = None
-		logging.debug(f"{index} : {discretisation.bounds(index)}")
-		logging.debug(f"{index} : {answer}\n")
+		logging.debug(f"{idx} : {discretisation.bounds(idx)}")
+		logging.debug(f"{idx} : {answer}\n")
+	logging.info(len(results))
 	logging.info(f"Out of {count} cells, {success} were successful")
 
 if __name__ == "__main__":
