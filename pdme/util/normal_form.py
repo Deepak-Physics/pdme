@@ -1,10 +1,12 @@
 import numpy
 import operator
+import logging
 
 
 # flips px, py, pz
 SIGN_ARRAY_7 = numpy.array((-1, -1, -1, 1, 1, 1, 1))
 SIGN_ARRAY_4 = numpy.array((-1, 1, 1, 1))
+
 
 def flip_chunk_to_positive_px(pt: numpy.ndarray) -> numpy.ndarray:
 	if pt[0] > 0:
@@ -15,6 +17,9 @@ def flip_chunk_to_positive_px(pt: numpy.ndarray) -> numpy.ndarray:
 			return SIGN_ARRAY_7 * pt
 		elif len(pt) == 4:
 			return SIGN_ARRAY_4 * pt
+		else:
+			logging.warning(f"Could not normalise pt: {pt}. Returning as is...")
+			return pt
 
 
 def normalise_point_list(pts: numpy.ndarray, pt_length) -> numpy.ndarray:
