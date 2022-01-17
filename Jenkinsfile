@@ -36,7 +36,7 @@ pipeline {
 				}
 				stage('lint') {
 					steps {
-						sh '${POETRY_HOME}/bin/poetry run flake8'
+						sh '${POETRY_HOME}/bin/poetry run flake8 pdme tests'
 					}
 				}
 				stage('mypy') {
