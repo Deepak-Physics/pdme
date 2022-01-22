@@ -23,7 +23,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--junitxml pytest.xml --cov pdme --cov-report=xml:coverage.xml --cov-fail-under=90 --cov-report=html"
+addopts = "--junitxml pytest.xml --cov pdme --cov-report=xml:coverage.xml --cov-fail-under=50 --cov-report=html"
 junit_family = "xunit1"
 
 [tool.mypy]
