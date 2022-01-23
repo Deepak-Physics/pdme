@@ -2,7 +2,7 @@ import numpy
 from dataclasses import dataclass
 from typing import Sequence, Tuple
 import scipy.optimize
-from pdme.model.model import Model
+from pdme.model.model import Model, Discretisation
 from pdme.measurement import DotMeasurement
 
 
@@ -71,7 +71,7 @@ class UnrestrictedModel(Model):
 
 
 @dataclass
-class UnrestrictedDiscretisation():
+class UnrestrictedDiscretisation(Discretisation):
 	'''
 	Representation of a discretisation of a UnrestrictedModel.
 	Also captures a rough maximum value of dipole.
@@ -113,7 +113,7 @@ class UnrestrictedDiscretisation():
 		self.py_step = 2 * self.max_p / self.num_py
 		self.pz_step = 2 * self.max_p / self.num_pz
 
-	def bounds(self, index: Tuple[float, float, float, float, float, float]) -> Tuple:
+	def bounds(self, index: Tuple[float, ...]) -> Tuple:
 		pxi, pyi, pzi, xi, yi, zi = index
 
 		# For this model, a point is (px, py, pz, sx, sx, sy, w).
@@ -135,7 +135,7 @@ class UnrestrictedDiscretisation():
 		# see https://github.com/numpy/numpy/issues/20706 for why this is a mypy problem.
 		return numpy.ndindex((self.num_px, self.num_py, self.num_pz, self.num_x, self.num_y, self.num_z))  # type:ignore
 
-	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple[float, float, float, float, float, float]) -> scipy.optimize.OptimizeResult:
+	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple[float, ...]) -> scipy.optimize.OptimizeResult:
 		bounds = self.bounds(index)
 		px_mean = (bounds[0][0] + bounds[1][0]) / 2
 		py_mean = (bounds[0][1] + bounds[1][1]) / 2

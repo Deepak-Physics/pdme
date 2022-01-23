@@ -1,6 +1,6 @@
 import numpy
 import scipy.optimize
-from typing import Callable, Sequence
+from typing import Callable, Sequence, Tuple
 from pdme.measurement import DotMeasurement, OscillatingDipoleArrangement
 import pdme.util
 import logging
@@ -89,3 +89,14 @@ class Model():
 		result = scipy.optimize.least_squares(self.costs(dots), initial, jac=self.jac(dots), ftol=1e-15, gtol=3e-16, xtol=None, bounds=bounds)
 		result.normalised_x = pdme.util.normalise_point_list(result.x, self.point_length())
 		return result
+
+
+class Discretisation():
+	def bounds(self, index: Tuple[float, ...]) -> Tuple:
+		raise NotImplementedError
+
+	def all_indices(self) -> numpy.ndindex:
+		raise NotImplementedError
+
+	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple) -> scipy.optimize.OptimizeResult:
+		raise NotImplementedError

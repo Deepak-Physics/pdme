@@ -3,7 +3,7 @@ import numpy.random
 from dataclasses import dataclass
 from typing import Sequence, Tuple
 import scipy.optimize
-from pdme.model.model import Model
+from pdme.model.model import Model, Discretisation
 from pdme.measurement import DotMeasurement, OscillatingDipoleArrangement, OscillatingDipole
 
 
@@ -74,7 +74,7 @@ class FixedDipoleModel(Model):
 
 
 @dataclass
-class FixedDipoleDiscretisation():
+class FixedDipoleDiscretisation(Discretisation):
 	'''
 	Representation of a discretisation of a FixedDipoleDiscretisation.
 	Also captures a rough maximum value of dipole.
@@ -101,7 +101,7 @@ class FixedDipoleDiscretisation():
 		self.y_step = (self.model.ymax - self.model.ymin) / self.num_y
 		self.z_step = (self.model.zmax - self.model.zmin) / self.num_z
 
-	def bounds(self, index: Tuple[float, float, float]) -> Tuple:
+	def bounds(self, index: Tuple[float, ...]) -> Tuple:
 		xi, yi, zi = index
 
 		# For this model, a point is (sx, sx, sy, w).
@@ -121,7 +121,7 @@ class FixedDipoleDiscretisation():
 		# see https://github.com/numpy/numpy/issues/20706 for why this is a mypy problem.
 		return numpy.ndindex((self.num_x, self.num_y, self.num_z))  # type:ignore
 
-	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple[float, float, float]) -> scipy.optimize.OptimizeResult:
+	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple[float, ...]) -> scipy.optimize.OptimizeResult:
 		bounds = self.bounds(index)
 		sx_mean = (bounds[0][0] + bounds[1][0]) / 2
 		sy_mean = (bounds[0][1] + bounds[1][1]) / 2

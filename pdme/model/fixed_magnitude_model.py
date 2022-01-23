@@ -3,7 +3,7 @@ import numpy.random
 from dataclasses import dataclass
 from typing import Sequence, Tuple
 import scipy.optimize
-from pdme.model.model import Model
+from pdme.model.model import Model, Discretisation
 from pdme.measurement import DotMeasurement, OscillatingDipole, OscillatingDipoleArrangement
 
 
@@ -106,7 +106,7 @@ class FixedMagnitudeModel(Model):
 
 
 @dataclass
-class FixedMagnitudeDiscretisation():
+class FixedMagnitudeDiscretisation(Discretisation):
 	'''
 	Representation of a discretisation of a FixedMagnitudeDiscretisation.
 	Also captures a rough maximum value of dipole.
@@ -141,7 +141,7 @@ class FixedMagnitudeDiscretisation():
 		self.h_step = 2 / self.num_ptheta
 		self.phi_step = 2 * numpy.pi / self.num_pphi
 
-	def bounds(self, index: Tuple[float, float, float, float, float]) -> Tuple:
+	def bounds(self, index: Tuple[float, ...]) -> Tuple:
 		pthetai, pphii, xi, yi, zi = index
 
 		# For this model, a point is (p_theta, p_phi, sx, sx, sy, w).
@@ -163,7 +163,7 @@ class FixedMagnitudeDiscretisation():
 		# see https://github.com/numpy/numpy/issues/20706 for why this is a mypy problem.
 		return numpy.ndindex((self.num_ptheta, self.num_pphi, self.num_x, self.num_y, self.num_z))  # type:ignore
 
-	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple[float, float, float, float, float]) -> scipy.optimize.OptimizeResult:
+	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple[float, ...]) -> scipy.optimize.OptimizeResult:
 		bounds = self.bounds(index)
 		ptheta_mean = (bounds[0][0] + bounds[1][0]) / 2
 		pphi_mean = (bounds[0][1] + bounds[1][1]) / 2
