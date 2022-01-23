@@ -1,7 +1,7 @@
 import numpy
 import scipy.optimize
 from typing import Callable, Sequence
-from pdme.measurement import DotMeasurement
+from pdme.measurement import DotMeasurement, OscillatingDipoleArrangement
 import pdme.util
 import logging
 
@@ -18,6 +18,9 @@ class Model():
 		raise NotImplementedError
 
 	def v_for_point_at_dot(self, dot: DotMeasurement, pt: numpy.ndarray) -> float:
+		raise NotImplementedError
+
+	def get_dipoles(self, frequency: float) -> OscillatingDipoleArrangement:
 		raise NotImplementedError
 
 	def cost_for_dot(self, dot: DotMeasurement, pts: numpy.ndarray) -> float:

@@ -1,9 +1,10 @@
 import numpy
+import numpy.random
 from dataclasses import dataclass
 from typing import Sequence, Tuple
 import scipy.optimize
 from pdme.model.model import Model
-from pdme.measurement import DotMeasurement
+from pdme.measurement import DotMeasurement, OscillatingDipole, OscillatingDipoleArrangement
 
 
 class FixedMagnitudeModel(Model):
@@ -26,6 +27,7 @@ class FixedMagnitudeModel(Model):
 		self.zmax = zmax
 		self.pfixed = pfixed
 		self._n = n
+		self.rng = numpy.random.default_rng()
 
 	def __repr__(self) -> str:
 		return f'FixedMagnitudeModel({self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.zmin}, {self.zmax}, {self.n()})'
@@ -36,6 +38,15 @@ class FixedMagnitudeModel(Model):
 			Six degrees of freedom: (p_theta, p_phi, sx, sy, sz, w).
 		'''
 		return 6
+
+	def get_dipoles(self, frequency: float) -> OscillatingDipoleArrangement:
+		theta = numpy.arccos(self.rng.uniform(-1, 1))
+		phi = self.rng.uniform(0, 2 * numpy.pi)
+		px = self.pfixed * numpy.sin(theta) * numpy.cos(phi)
+		py = self.pfixed * numpy.sin(theta) * numpy.sin(phi)
+		pz = self.pfixed * numpy.cos(theta)
+		s_pts = numpy.array((self.rng.uniform(self.xmin, self.xmax), self.rng.uniform(self.ymin, self.ymax), self.rng.uniform(self.zmin, self.zmax)))
+		return OscillatingDipoleArrangement([OscillatingDipole(numpy.array([px, py, pz]), s_pts, frequency)])
 
 	def n(self) -> int:
 		return self._n

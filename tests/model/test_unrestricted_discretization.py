@@ -3,8 +3,8 @@ import numpy
 
 
 def test_unrestricted_model_discretization():
-	model = UnrestrictedModel(-10, 10, -10, 10, -10, 10, 1)
-	discretisation = UnrestrictedDiscretisation(model, 1, 1, 2, 2, 5, 1, 15)
+	model = UnrestrictedModel(-10, 10, -10, 10, -10, 10, 15, 1)
+	discretisation = UnrestrictedDiscretisation(model, 1, 1, 2, 2, 5, 1)
 	# x: (-10, 0) and (0, 10)
 	# y: (-10, -6, -2, 2, 6, 10)
 	assert discretisation.cell_count == 10

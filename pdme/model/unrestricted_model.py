@@ -16,17 +16,18 @@ class UnrestrictedModel(Model):
 	n : int
 		The number of dipoles to assume.
 	'''
-	def __init__(self, xmin: float, xmax: float, ymin: float, ymax: float, zmin: float, zmax: float, n: int) -> None:
+	def __init__(self, xmin: float, xmax: float, ymin: float, ymax: float, zmin: float, zmax: float, max_p: float, n: int) -> None:
 		self.xmin = xmin
 		self.xmax = xmax
 		self.ymin = ymin
 		self.ymax = ymax
 		self.zmin = zmin
 		self.zmax = zmax
+		self.max_p = max_p
 		self._n = n
 
 	def __repr__(self) -> str:
-		return f'UnrestrictedModel({self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.zmin}, {self.zmax}, {self.n()})'
+		return f'UnrestrictedModel({self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.zmin}, {self.zmax}, {self.max_p}, {self.n()})'
 
 	def point_length(self) -> int:
 		'''
@@ -101,9 +102,9 @@ class UnrestrictedDiscretisation():
 	num_x: int
 	num_y: int
 	num_z: int
-	max_p: int
 
 	def __post_init__(self):
+		self.max_p = self.model.max_p
 		self.cell_count = self.num_x * self.num_y * self.num_z
 		self.x_step = (self.model.xmax - self.model.xmin) / self.num_x
 		self.y_step = (self.model.ymax - self.model.ymin) / self.num_y
