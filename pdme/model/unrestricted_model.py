@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Sequence, Tuple
 import scipy.optimize
 from pdme.model.model import Model, Discretisation
-from pdme.measurement import DotMeasurement
+from pdme.measurement import DotMeasurement, OscillatingDipoleArrangement, OscillatingDipole
 
 
 class UnrestrictedModel(Model):
@@ -25,6 +25,7 @@ class UnrestrictedModel(Model):
 		self.zmax = zmax
 		self.max_p = max_p
 		self._n = n
+		self.rng = numpy.random.default_rng()
 
 	def __repr__(self) -> str:
 		return f'UnrestrictedModel({self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.zmin}, {self.zmax}, {self.max_p}, {self.n()})'
@@ -68,6 +69,16 @@ class UnrestrictedModel(Model):
 		w_div = alpha**2 * (1 / numpy.pi) * ((f2 - w2) / ((f2 + w2)**2))
 
 		return numpy.concatenate((p_divs, r_divs, w_div), axis=None)
+
+	def get_dipoles(self, frequency: float) -> OscillatingDipoleArrangement:
+		theta = numpy.arccos(self.rng.uniform(-1, 1))
+		phi = self.rng.uniform(0, 2 * numpy.pi)
+		p = self.rng.uniform(0, self.max_p)
+		px = p * numpy.sin(theta) * numpy.cos(phi)
+		py = p * numpy.sin(theta) * numpy.sin(phi)
+		pz = p * numpy.cos(theta)
+		s_pts = numpy.array((self.rng.uniform(self.xmin, self.xmax), self.rng.uniform(self.ymin, self.ymax), self.rng.uniform(self.zmin, self.zmax)))
+		return OscillatingDipoleArrangement([OscillatingDipole(numpy.array([px, py, pz]), s_pts, frequency)])
 
 
 @dataclass
