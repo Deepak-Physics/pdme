@@ -32,6 +32,7 @@ class FixedDipoleModel(Model):
 	def __repr__(self) -> str:
 		return f'FixedDipoleModel({self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.zmin}, {self.zmax}, {self.p}, {self.n()})'
 
+	# TODO: this signature doesn't make sense.
 	def get_dipoles(self, frequency: float) -> OscillatingDipoleArrangement:
 		s_pts = numpy.array((self.rng.uniform(self.xmin, self.xmax), self.rng.uniform(self.ymin, self.ymax), self.rng.uniform(self.zmin, self.zmax)))
 		return OscillatingDipoleArrangement([OscillatingDipole(self.p, s_pts, frequency)])
