@@ -8,6 +8,9 @@ SIGN_ARRAY_7 = numpy.array((-1, -1, -1, 1, 1, 1, 1))
 SIGN_ARRAY_4 = numpy.array((-1, 1, 1, 1))
 
 
+_logger = logging.getLogger(__name__)
+
+
 def flip_chunk_to_positive_px(pt: numpy.ndarray) -> numpy.ndarray:
 	if pt[0] > 0:
 		return pt
@@ -18,7 +21,7 @@ def flip_chunk_to_positive_px(pt: numpy.ndarray) -> numpy.ndarray:
 		elif len(pt) == 4:
 			return SIGN_ARRAY_4 * pt
 		else:
-			logging.warning(f"Could not normalise pt: {pt}. Returning as is...")
+			_logger.warning(f"Could not normalise pt: {pt}. Returning as is...")
 			return pt
 
 

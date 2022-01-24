@@ -6,6 +6,9 @@ import pdme.util
 import logging
 
 
+_logger = logging.getLogger(__name__)
+
+
 class Model():
 	"""
 	Interface for models.
@@ -43,7 +46,7 @@ class Model():
 		----------
 		Returns the model's cost function.
 		'''
-		logging.debug(f"Constructing costs for dots: {dots}")
+		_logger.debug(f"Constructing costs for dots: {dots}")
 
 		def costs_to_return(pts: numpy.ndarray) -> numpy.ndarray:
 			return numpy.array([self.cost_for_dot(dot, pts) for dot in dots])
