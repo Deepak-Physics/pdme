@@ -1,7 +1,7 @@
 import numpy
 import scipy.optimize
-from typing import Callable, Sequence, Tuple
-from pdme.measurement import DotMeasurement, OscillatingDipoleArrangement
+from typing import Callable, Sequence, Tuple, List
+from pdme.measurement import DotMeasurement, OscillatingDipoleArrangement, OscillatingDipole
 import pdme.util
 import logging
 
@@ -25,6 +25,14 @@ class Model():
 
 	def get_dipoles(self, frequency: float) -> OscillatingDipoleArrangement:
 		raise NotImplementedError
+
+	def solution_single_dipole(self, pt: numpy.ndarray) -> OscillatingDipole:
+		raise NotImplementedError
+
+	def solution_as_dipoles(self, pts: numpy.ndarray) -> List[OscillatingDipole]:
+		pt_length = self.point_length()
+		chunked_pts = [pts[i: i + pt_length] for i in range(0, len(pts), pt_length)]
+		return [self.solution_single_dipole(pt) for pt in chunked_pts]
 
 	def cost_for_dot(self, dot: DotMeasurement, pts: numpy.ndarray) -> float:
 		# creates numpy.ndarrays in groups of self.point_length().

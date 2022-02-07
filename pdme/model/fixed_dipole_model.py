@@ -37,6 +37,12 @@ class FixedDipoleModel(Model):
 		s_pts = numpy.array((self.rng.uniform(self.xmin, self.xmax), self.rng.uniform(self.ymin, self.ymax), self.rng.uniform(self.zmin, self.zmax)))
 		return OscillatingDipoleArrangement([OscillatingDipole(self.p, s_pts, frequency)])
 
+	def solution_single_dipole(self, pt: numpy.ndarray) -> OscillatingDipole:
+		# assume length is 4.
+		s = pt[0:3]
+		w = pt[3]
+		return OscillatingDipole(self.p, s, w)
+
 	def point_length(self) -> int:
 		'''
 			Dipole is constrained magnitude, but free orientation.

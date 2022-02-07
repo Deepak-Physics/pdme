@@ -30,7 +30,21 @@ class FixedMagnitudeModel(Model):
 		self.rng = numpy.random.default_rng()
 
 	def __repr__(self) -> str:
-		return f'FixedMagnitudeModel({self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.zmin}, {self.zmax}, {self.n()})'
+		return f'FixedMagnitudeModel({self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.zmin}, {self.zmax}, {self.pfixed}, {self.n()})'
+
+	def solution_single_dipole(self, pt: numpy.ndarray) -> OscillatingDipole:
+		# assume length is 6, who needs error checking.
+		p_theta = pt[0]
+		p_phi = pt[1]
+		s = pt[2:5]
+		w = pt[5]
+
+		p = numpy.array([
+			self.pfixed * numpy.sin(p_theta) * numpy.cos(p_phi),
+			self.pfixed * numpy.sin(p_theta) * numpy.sin(p_phi),
+			self.pfixed * numpy.cos(p_theta)
+		])
+		return OscillatingDipole(p, s, w)
 
 	def point_length(self) -> int:
 		'''
