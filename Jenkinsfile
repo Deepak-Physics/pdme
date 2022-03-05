@@ -16,8 +16,8 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo 'Building...'
-				bash 'python --version'
 				echo '${POETRY_HOME}'
+				sh 'python --version'
 				// sh '${POETRY_HOME}/bin/poetry --version'
 				// sh '${POETRY_HOME}/bin/poetry install'
 			}
