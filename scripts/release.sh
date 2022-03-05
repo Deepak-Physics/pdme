@@ -10,6 +10,20 @@ if [ -z "$(git status --porcelain)" ]; then
 		echo "I'd feel uncomfortable releasing from here..."
 		exit 3
 	fi
+
+	release_needed=false
+	if \
+		{ git log "$( git describe --tags --abbrev=0 )..HEAD" --format='%s' | cut -d: -f1 | sort -u | sed -e 's/([^)]*)//' | grep -q -i -E '^feat|fix|perf|refactor|revert$' ; } || \
+		{ git log "$( git describe --tags --abbrev=0 )..HEAD" --format='%s' | cut -d: -f1 | sort -u | sed -e 's/([^)]*)//' | grep -q -E '\!$' ; } || \
+		{ git log "$( git describe --tags --abbrev=0 )..HEAD" --format='%b' | grep -q -E '^BREAKING CHANGE:' ; }
+	then
+		release_needed=true
+	fi
+	
+	if ! [ "$release_needed" = true ]; then
+		echo "No release needed..."
+	fi
+
 	# Working directory clean
 	echo "Doing a dry run..."
 	npx standard-version --dry-run
