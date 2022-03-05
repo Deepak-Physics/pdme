@@ -22,6 +22,7 @@ if [ -z "$(git status --porcelain)" ]; then
 	
 	if ! [ "$release_needed" = true ]; then
 		echo "No release needed..."
+		exit 0
 	fi
 
 	# Working directory clean
