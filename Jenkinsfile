@@ -4,7 +4,7 @@ pipeline {
 		label 'pdme'  // all your pods will be named with this prefix, followed by a unique id
 		idleMinutes 5  // how long the pod will live after no jobs have run on it
 		yamlFile 'jenkins/ci-agent-pod.yaml'  // path to the pod definition relative to the root of our project
-		defaultContainer 'python'  // define a default container if more than a few stages use it, will default to jnlp container
+		defaultContainer 'poetry'  // define a default container if more than a few stages use it, will default to jnlp container
 	  }
 	}
 
@@ -16,26 +16,26 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo 'Building...'
-				sh 'ls /root/'
-				// sh '${POETRY_HOME}/bin/poetry --version'
-				// sh '${POETRY_HOME}/bin/poetry install'
+				sh 'python --version'
+				sh 'poetry --version'
+				sh 'poetry install'
 			}
 		}
 		stage('Test') {
 			parallel{
 				stage('pytest') {
 					steps {
-						sh '${POETRY_HOME}/bin/poetry run pytest'
+						sh 'poetry run pytest'
 					}
 				}
 				stage('lint') {
 					steps {
-						sh '${POETRY_HOME}/bin/poetry run flake8 pdme tests'
+						sh 'poetry run flake8 pdme tests'
 					}
 				}
 				stage('mypy') {
 					steps {
-						sh '${POETRY_HOME}/bin/poetry run mypy pdme'
+						sh 'poetry run mypy pdme'
 					}
 				}
 			}
@@ -51,7 +51,7 @@ pipeline {
 			}
 			steps {
 				echo 'Deploying...'
-				sh '${POETRY_HOME}/bin/poetry publish -u ${PYPI_USR} -p ${PYPI_PSW} --build'
+				sh '/poetry publish -u ${PYPI_USR} -p ${PYPI_PSW} --build'
 			}
 		}
 
