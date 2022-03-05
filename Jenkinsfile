@@ -12,17 +12,11 @@ pipeline {
 		parallelsAlwaysFailFast()
 	}
 
-	environment {
-		POETRY_HOME="/opt/poetry"
-		POETRY_VERSION="1.1.12"
-	}
-
 	stages {
 		stage('Build') {
 			steps {
 				echo 'Building...'
 				sh 'python --version'
-				sh 'curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python'
 				sh '${POETRY_HOME}/bin/poetry --version'
 				sh '${POETRY_HOME}/bin/poetry install'
 			}
