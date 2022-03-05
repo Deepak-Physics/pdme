@@ -11,7 +11,7 @@ DotInput = Tuple[numpy.typing.ArrayLike, float]
 @dataclass
 class OscillatingDipole():
 	'''
-	Representation of an oscilltaing dipole, either known or guessed.
+	Representation of an oscillating dipole, either known or guessed.
 
 	Parameters
 	----------
