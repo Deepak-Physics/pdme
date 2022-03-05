@@ -51,7 +51,7 @@ pipeline {
 			}
 			steps {
 				echo 'Deploying...'
-				sh '/poetry publish -u ${PYPI_USR} -p ${PYPI_PSW} --build'
+				sh 'poetry publish -u ${PYPI_USR} -p ${PYPI_PSW} --build'
 			}
 		}
 
