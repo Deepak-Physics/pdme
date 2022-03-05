@@ -1,9 +1,11 @@
 apiVersion: v1
 kind: Pod
 spec:
+  imagePullSecrets:
+    - name: regcreds
   containers:  # list of containers that you want present for your build, you can define a default container in the Jenkinsfile
-    - name: python
-      image: python:3.8
+    - name: poetry
+      image: ghcr.io/dmallubhotla/poetry-image:1
       command: ["tail", "-f", "/dev/null"]  # this or any command that is bascially a noop is required, this is so that you don't overwrite the entrypoint of the base container
       imagePullPolicy: Always # use cache or pull image for agent
       resources:  # limits the resources your build contaienr
