@@ -6,6 +6,5 @@
 		}
 	],
 	"sign": true,
-	"prerelease": true,
 	"tag-prefix": ""
 }
