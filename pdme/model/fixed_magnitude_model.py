@@ -190,6 +190,9 @@ class FixedMagnitudeDiscretisation(Discretisation):
 			]
 		)
 
+	def get_model(self) -> Model:
+		return self.model
+
 	def all_indices(self) -> numpy.ndindex:
 		# see https://github.com/numpy/numpy/issues/20706 for why this is a mypy problem.
 		return numpy.ndindex((self.num_ptheta, self.num_pphi, self.num_x, self.num_y, self.num_z))  # type:ignore

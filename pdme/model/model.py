@@ -114,3 +114,6 @@ class Discretisation():
 
 	def solve_for_index(self, dots: Sequence[DotMeasurement], index: Tuple) -> scipy.optimize.OptimizeResult:
 		raise NotImplementedError
+
+	def get_model(self) -> Model:
+		raise NotImplementedError
