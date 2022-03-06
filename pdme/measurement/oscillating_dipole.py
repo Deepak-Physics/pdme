@@ -54,6 +54,16 @@ class OscillatingDipole():
 		return (1 / numpy.pi) * (self.w / (f**2 + self.w**2))
 
 
+def dot_inputs_to_array(dot_inputs: Sequence[DotInput]) -> numpy.ndarray:
+	return numpy.array([numpy.append(numpy.array(input[0]), input[1]) for input in dot_inputs])
+
+
+def dot_range_measurements_low_high_arrays(dot_range_measurements: Sequence[DotRangeMeasurement]) -> Tuple[numpy.ndarray, numpy.ndarray]:
+	lows = [measurement.v_low for measurement in dot_range_measurements]
+	highs = [measurement.v_high for measurement in dot_range_measurements]
+	return (numpy.array(lows), numpy.array(highs))
+
+
 class OscillatingDipoleArrangement():
 	'''
 	A collection of oscillating dipoles, which we are interested in being able to characterise.

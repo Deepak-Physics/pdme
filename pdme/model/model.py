@@ -26,6 +26,9 @@ class Model():
 	def get_dipoles(self, frequency: float) -> OscillatingDipoleArrangement:
 		raise NotImplementedError
 
+	def get_n_single_dipoles(self, n: int, max_frequency: float) -> numpy.ndarray:
+		raise NotImplementedError
+
 	def solution_single_dipole(self, pt: numpy.ndarray) -> OscillatingDipole:
 		raise NotImplementedError
 
