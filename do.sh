@@ -20,6 +20,10 @@ htmlcov() {
 	poetry run pytest --cov-report=html
 }
 
+release() {
+   ./scripts/release.sh
+}
+
 all() {
    build && test
 }
