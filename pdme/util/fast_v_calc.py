@@ -31,3 +31,10 @@ def fast_vs_for_dipoles(dot_inputs: numpy.ndarray, dipoles: numpy.ndarray) -> nu
 	bses = (1 / numpy.pi) * (ws[:, None] / (fs**2 + ws[:, None]**2))
 	_logger.debug(f"bses: {bses}")
 	return ases * bses
+
+
+def between(a: numpy.ndarray, low: numpy.ndarray, high: numpy.ndarray) -> numpy.ndarray:
+	'''
+		Intended specifically for the case where a is a list of arrays, and each array must be between the single array low and high, but without error checking.
+	'''
+	return numpy.all(numpy.logical_and(low < a, high > a), axis=1)
