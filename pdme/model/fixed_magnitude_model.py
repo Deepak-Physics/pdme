@@ -62,6 +62,23 @@ class FixedMagnitudeModel(Model):
 		s_pts = numpy.array((self.rng.uniform(self.xmin, self.xmax), self.rng.uniform(self.ymin, self.ymax), self.rng.uniform(self.zmin, self.zmax)))
 		return OscillatingDipoleArrangement([OscillatingDipole(numpy.array([px, py, pz]), s_pts, frequency)])
 
+	def get_n_single_dipoles(self, n: int, max_frequency: float) -> numpy.ndarray:
+		# psw
+
+		theta = 2 * numpy.pi * self.rng.random(n)
+		phi = numpy.arccos(2 * self.rng.random(n) - 1)
+		px = self.pfixed * numpy.cos(theta) * numpy.sin(phi)
+		py = self.pfixed * numpy.sin(theta) * numpy.sin(phi)
+		pz = self.pfixed * numpy.cos(phi)
+
+		sx = self.rng.uniform(self.xmin, self.xmax, n)
+		sy = self.rng.uniform(self.ymin, self.ymax, n)
+		sz = self.rng.uniform(self.zmin, self.zmax, n)
+
+		w = self.rng.uniform(1, max_frequency, n)
+
+		return numpy.array([px, py, pz, sx, sy, sz, w]).T
+
 	def n(self) -> int:
 		return self._n
 
