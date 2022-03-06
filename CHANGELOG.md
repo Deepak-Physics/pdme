@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.4](https://gitea.deepak.science:2222/physics/pdme/compare/0.5.3...0.5.4) (2022-03-06)
+
+
+### Bug Fixes
+
+* lets you get model from discretisation for fixed magnitude models in type hintable way ([548dcfe](https://gitea.deepak.science:2222/physics/pdme/commit/548dcfebfc7cd6354ad708b3ab0e664881c58de4))
+
 ### [0.5.3](https://gitea.deepak.science:2222/physics/pdme/compare/0.5.2...0.5.3) (2022-03-06)
 
 
