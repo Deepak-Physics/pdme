@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import numpy
 import numpy.typing
 from typing import Sequence, List, Tuple
-from pdme.measurement.dot_measure import DotMeasurement
+from pdme.measurement.dot_measure import DotMeasurement, DotRangeMeasurement
 
 
 DotInput = Tuple[numpy.typing.ArrayLike, float]
@@ -75,3 +75,14 @@ class OscillatingDipoleArrangement():
 		For a series of points, each with three coordinates and a frequency, return a list of the corresponding DotMeasurements.
 		'''
 		return [self.get_dot_measurement(dot_input) for dot_input in dot_inputs]
+
+	def get_percent_range_dot_measurement(self, dot_input: DotInput, low_percent: float, high_percent: float) -> DotRangeMeasurement:
+		r = numpy.array(dot_input[0])
+		f = dot_input[1]
+		return DotRangeMeasurement(low_percent * sum([dipole.s_at_position(r, f) for dipole in self.dipoles]), high_percent * sum([dipole.s_at_position(r, f) for dipole in self.dipoles]), r, f)
+
+	def get_percent_range_dot_measurements(self, dot_inputs: Sequence[DotInput], low_percent: float, high_percent: float) -> List[DotRangeMeasurement]:
+		'''
+		For a series of points, each with three coordinates and a frequency, and also a lower error range and upper error range, return a list of the corresponding DotRangeMeasurements.
+		'''
+		return [self.get_percent_range_dot_measurement(dot_input, low_percent, high_percent) for dot_input in dot_inputs]
