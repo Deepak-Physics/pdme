@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://gitea.deepak.science:2222/physics/pdme/compare/0.5.4...0.6.0) (2022-03-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* adds pair inputs to array function
+
+### Features
+
+* adds calc for pairs and pair ranges ([e72489f](https://gitea.deepak.science:2222/physics/pdme/commit/e72489f0cb6586756180c2021649f4eb019c77fc))
+* adds fast nonlocal noise Sij calculator ([5fbff2a](https://gitea.deepak.science:2222/physics/pdme/commit/5fbff2a5c0f128ffc5b749788c8bdcd6f88de234))
+* adds methods for better creation of input lists, including pairs ([852836b](https://gitea.deepak.science:2222/physics/pdme/commit/852836b924c8ffefd6b28a8ea1bc1ca47b77756e))
+* adds pair inputs to array function ([a7508b8](https://gitea.deepak.science:2222/physics/pdme/commit/a7508b8906923a579dfa05edc22963d2f0102be9))
+
 ### [0.5.4](https://gitea.deepak.science:2222/physics/pdme/compare/0.5.3...0.5.4) (2022-03-06)
 
 
