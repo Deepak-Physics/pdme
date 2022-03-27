@@ -22,6 +22,34 @@ def test_static_dipole():
 	numpy.testing.assert_allclose(measurement.v, expected_v1 + expected_v2, err_msg="Voltage at dot isn't as expected.")
 
 
+def test_dipole_dot_pair():
+	d1 = pdme.measurement.OscillatingDipole((1, 2, 3), (4, 5, 6), 7)
+	dipoles = pdme.measurement.OscillatingDipoleArrangement([d1])
+
+	dot_position1 = (-1, -1, -1)
+	dot_position2 = (1, 2, 3)
+	dot_frequency = 8
+	expected_sij = 0.000083328037100902801698
+
+	numpy.testing.assert_allclose(d1.s_for_dot_pair(dot_position1, dot_position2, dot_frequency), expected_sij, err_msg="Sij for dot pair isn't as expected.")
+	numpy.testing.assert_allclose([m.v for m in dipoles.get_dot_pair_measurements([(dot_position1, dot_position2, dot_frequency)])], [expected_sij], err_msg="Sij for dot pair isn't as expected via dipole.")
+
+
+def test_range_pairs():
+	d1 = pdme.measurement.OscillatingDipole((1, 2, 3), (4, 5, 6), 7)
+	dipoles = pdme.measurement.OscillatingDipoleArrangement([d1])
+
+	dot_position1 = (-1, -1, -1)
+	dot_position2 = (1, 2, 3)
+	dot_frequency = 8
+	expected_sij = 0.000083328037100902801698
+
+	actuals = dipoles.get_percent_range_dot_pair_measurements([(dot_position1, dot_position2, dot_frequency)], 0.5, 1.5)
+	assert len(actuals) == 1, "should have only been one pair"
+	actual = actuals[0]
+	numpy.testing.assert_allclose([actual.v_low, actual.v_high], expected_sij * numpy.array([0.5, 1.5]), err_msg="Sij for dot pair isn't as expected via dipole with range.")
+
+
 def test_range_dipole_measurements():
 	d1 = pdme.measurement.OscillatingDipole((1, 2, 3), (4, 5, 6), 7)
 	d2 = pdme.measurement.OscillatingDipole((2, 5, 3), (4, -5, -6), 2)
