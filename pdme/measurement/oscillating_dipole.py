@@ -1,13 +1,10 @@
 from dataclasses import dataclass
 import numpy
 import numpy.typing
-from typing import Sequence, List, Tuple
+from typing import Sequence, List
 from pdme.measurement.dot_measure import DotMeasurement, DotRangeMeasurement
 from pdme.measurement.dot_pair_measure import DotPairMeasurement, DotPairRangeMeasurement
-
-
-DotInput = Tuple[numpy.typing.ArrayLike, float]
-DotPairInput = Tuple[numpy.typing.ArrayLike, numpy.typing.ArrayLike, float]
+from pdme.measurement.input_types import DotInput, DotPairInput
 
 
 @dataclass
@@ -57,16 +54,6 @@ class OscillatingDipole():
 
 	def s_for_dot_pair(self, r1: numpy.ndarray, r2: numpy.ndarray, f: float) -> float:
 		return self._alpha(r1) * self._alpha(r2) * self._b(f)
-
-
-def dot_inputs_to_array(dot_inputs: Sequence[DotInput]) -> numpy.ndarray:
-	return numpy.array([numpy.append(numpy.array(input[0]), input[1]) for input in dot_inputs])
-
-
-def dot_range_measurements_low_high_arrays(dot_range_measurements: Sequence[DotRangeMeasurement]) -> Tuple[numpy.ndarray, numpy.ndarray]:
-	lows = [measurement.v_low for measurement in dot_range_measurements]
-	highs = [measurement.v_high for measurement in dot_range_measurements]
-	return (numpy.array(lows), numpy.array(highs))
 
 
 class OscillatingDipoleArrangement():
