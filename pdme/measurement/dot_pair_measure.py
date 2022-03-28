@@ -56,3 +56,5 @@ class DotPairRangeMeasurement():
 	def __post_init__(self) -> None:
 		self.r1 = numpy.array(self.r1)
 		self.r2 = numpy.array(self.r2)
+		if self.v_low > self.v_high:
+			self.v_low, self.v_high = self.v_high, self.v_low

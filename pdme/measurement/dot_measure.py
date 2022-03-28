@@ -48,3 +48,5 @@ class DotRangeMeasurement():
 
 	def __post_init__(self) -> None:
 		self.r = numpy.array(self.r)
+		if self.v_low > self.v_high:
+			self.v_low, self.v_high = self.v_high, self.v_low
