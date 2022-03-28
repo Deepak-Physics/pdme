@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1](https://gitea.deepak.science:2222/physics/pdme/compare/0.6.0...0.6.1) (2022-03-28)
+
+
+### Bug Fixes
+
+* Swaps high and lows for ranges if needed to make negatives behave nicer ([8a60967](https://gitea.deepak.science:2222/physics/pdme/commit/8a60967ddfa18e49460b05edc7ec575f06db868f))
+
 ## [0.6.0](https://gitea.deepak.science:2222/physics/pdme/compare/0.5.4...0.6.0) (2022-03-27)
 
 
