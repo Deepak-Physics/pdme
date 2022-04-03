@@ -16,6 +16,11 @@ test() {
 	poetry run pytest
 }
 
+fmt() {
+	poetry run black .
+	find . -type f -name "*.py" -exec sed -i -e 's/    /\t/g' {} \;
+}
+
 htmlcov() {
 	poetry run pytest --cov-report=html
 }
