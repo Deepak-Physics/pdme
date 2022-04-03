@@ -18,7 +18,7 @@ class UnrestrictedModel(Model):
 	Parameters
 	----------
 	n : int
-			The number of dipoles to assume.
+	The number of dipoles to assume.
 	"""
 
 	def __init__(
@@ -123,21 +123,28 @@ class UnrestrictedDiscretisation(Discretisation):
 	Parameters
 	----------
 	model : UnrestrictedModel
-			The parent model of the discretisation.
+	The parent model of the discretisation.
+
 	num_px: int
-			The number of partitions of the px.
+	The number of partitions of the px.
+
 	num_py: int
-			The number of partitions of the py.
+	The number of partitions of the py.
+
 	num_pz: int
-			The number of partitions of pz.
+	The number of partitions of pz.
+
 	num_x : int
-			The number of partitions of the x axis.
+	The number of partitions of the x axis.
+
 	num_y : int
-			The number of partitions of the y axis.
+	The number of partitions of the y axis.
+
 	num_z : int
-			The number of partitions of the z axis.
+	The number of partitions of the z axis.
+
 	max_p : int
-			The maximum p coordinate in any direction.
+	The maximum p coordinate in any direction.
 	"""
 
 	model: UnrestrictedModel

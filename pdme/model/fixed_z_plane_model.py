@@ -15,17 +15,22 @@ class FixedZPlaneModel(Model):
 	Parameters
 	----------
 	z : float
-			The z position of the plane where dipoles are constrained to lie.
+	The z position of the plane where dipoles are constrained to lie.
+
 	xmin : float
-			The minimum x value for dipoles.
+	The minimum x value for dipoles.
+
 	xmax : float
-			The maximum x value for dipoles.
+	The maximum x value for dipoles.
+
 	ymin : float
-			The minimum y value for dipoles.
+	The minimum y value for dipoles.
+
 	ymax : float
-			The maximum y value for dipoles.
+	The maximum y value for dipoles.
+
 	n : int
-			The number of dipoles to assume.
+	The number of dipoles to assume.
 	"""
 
 	def __init__(
@@ -103,13 +108,16 @@ class FixedZPlaneDiscretisation:
 	Parameters
 	----------
 	model : FixedZPlaneModel
-			The parent model of the discretisation.
+	The parent model of the discretisation.
+
 	num_pz: int
-			The number of partitions of pz.
+	The number of partitions of pz.
+
 	num_x : int
-			The number of partitions of the x axis.
+	The number of partitions of the x axis.
+
 	num_y : int
-			The number of partitions of the y axis.
+	The number of partitions of the y axis.
 	"""
 
 	model: FixedZPlaneModel

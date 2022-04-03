@@ -18,9 +18,10 @@ class FixedMagnitudeModel(Model):
 	Parameters
 	----------
 	pfixed : float
-			The fixed dipole magnitude.
+	The fixed dipole magnitude.
+
 	n : int
-			The number of dipoles to assume.
+	The number of dipoles to assume.
 	"""
 
 	def __init__(
@@ -184,17 +185,22 @@ class FixedMagnitudeDiscretisation(Discretisation):
 	Parameters
 	----------
 	model : FixedMagnitudeModel
-			The parent model of the discretisation.
+	The parent model of the discretisation.
+
 	num_ptheta: int
-			The number of partitions of ptheta.
+	The number of partitions of ptheta.
+
 	num_pphi: int
-			The number of partitions of pphi.
+	The number of partitions of pphi.
+
 	num_x : int
-			The number of partitions of the x axis.
+	The number of partitions of the x axis.
+
 	num_y : int
-			The number of partitions of the y axis.
+	The number of partitions of the y axis.
+
 	num_z : int
-			The number of partitions of the z axis.
+	The number of partitions of the z axis.
 	"""
 
 	model: FixedMagnitudeModel

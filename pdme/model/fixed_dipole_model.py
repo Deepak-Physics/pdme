@@ -18,9 +18,10 @@ class FixedDipoleModel(Model):
 	Parameters
 	----------
 	p : numpy.ndarray
-			The fixed dipole moment.
+	The fixed dipole moment.
+
 	n : int
-			The number of dipoles to assume.
+	The number of dipoles to assume.
 	"""
 
 	def __init__(
@@ -122,13 +123,16 @@ class FixedDipoleDiscretisation(Discretisation):
 	Parameters
 	----------
 	model : FixedDipoleModel
-			The parent model of the discretisation.
+	The parent model of the discretisation.
+
 	num_x : int
-			The number of partitions of the x axis.
+	The number of partitions of the x axis.
+
 	num_y : int
-			The number of partitions of the y axis.
+	The number of partitions of the y axis.
+
 	num_z : int
-			The number of partitions of the z axis.
+	The number of partitions of the z axis.
 	"""
 
 	model: FixedDipoleModel

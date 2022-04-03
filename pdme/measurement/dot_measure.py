@@ -11,11 +11,13 @@ class DotMeasurement:
 	Parameters
 	----------
 	v : float
-			The voltage measured at the dot.
+	The voltage measured at the dot.
+
 	r : numpy.ndarray
-			The position of the dot.
+	The position of the dot.
+
 	f : float
-			The measurement frequency.
+	The measurement frequency.
 	"""
 
 	v: float
@@ -34,13 +36,16 @@ class DotRangeMeasurement:
 	Parameters
 	----------
 	v_low : float
-			The lower range of voltage measured at the dot.
+	The lower range of voltage measured at the dot.
+
 	v_high : float
-			The upper range of voltage measured at the dot.
+	The upper range of voltage measured at the dot.
+
 	r : numpy.ndarray
-			The position of the dot.
+	The position of the dot.
+
 	f : float
-			The measurement frequency.
+	The measurement frequency.
 	"""
 
 	v_low: float

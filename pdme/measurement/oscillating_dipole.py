@@ -18,11 +18,13 @@ class OscillatingDipole:
 	Parameters
 	----------
 	p : numpy.ndarray
-			The oscillating dipole moment, with overall sign arbitrary.
+	The oscillating dipole moment, with overall sign arbitrary.
+
 	s : numpy.ndarray
-			The position of the dipole.
+	The position of the dipole.
+
 	w : float
-			The oscillation frequency.
+	The oscillation frequency.
 	"""
 
 	p: numpy.ndarray
@@ -43,9 +45,10 @@ class OscillatingDipole:
 		Parameters
 		----------
 		r : numpy.ndarray
-				The position of the dot.
+		The position of the dot.
+
 		f : float
-				The dot frequency to sample.
+		The dot frequency to sample.
 		"""
 		return (self._alpha(r)) ** 2 * self._b(f)
 
