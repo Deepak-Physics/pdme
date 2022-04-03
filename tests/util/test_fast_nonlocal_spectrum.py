@@ -12,10 +12,9 @@ def test_fast_nonlocal_calc():
 
 	dipoles = numpy.array([d1, d2, d3, d4])
 
-	dot_pairs = numpy.array([
-		[[-1, -2, -3, 11], [-1, 2, 5, 11]],
-		[[-1, -2, -3, 6], [2, 4, 6, 6]]
-	])
+	dot_pairs = numpy.array(
+		[[[-1, -2, -3, 11], [-1, 2, 5, 11]], [[-1, -2, -3, 6], [2, 4, 6, 6]]]
+	)
 	# expected_ij is for pair i, dipole j
 	expected_11 = 0.000021124454334947546213
 	expected_12 = 0.000022184755131682365135
@@ -26,12 +25,23 @@ def test_fast_nonlocal_calc():
 	expected_23 = 0.000017558321044891869169
 	expected_24 = -0.000034714318479634499683
 
-	expected = numpy.array([[expected_11, expected_21], [expected_12, expected_22], [expected_13, expected_23], [expected_14, expected_24]])
+	expected = numpy.array(
+		[
+			[expected_11, expected_21],
+			[expected_12, expected_22],
+			[expected_13, expected_23],
+			[expected_14, expected_24],
+		]
+	)
 
 	# this is a bit silly but just set the logger to debug so that the coverage stats don't get affected by the debug statements.
 	pdme.util.fast_nonlocal_spectrum._logger.setLevel(logging.DEBUG)
 
-	numpy.testing.assert_allclose(pdme.util.fast_nonlocal_spectrum.fast_s_nonlocal(dot_pairs, dipoles), expected, err_msg="nonlocal voltages at dot aren't as expected.")
+	numpy.testing.assert_allclose(
+		pdme.util.fast_nonlocal_spectrum.fast_s_nonlocal(dot_pairs, dipoles),
+		expected,
+		err_msg="nonlocal voltages at dot aren't as expected.",
+	)
 
 
 def test_fast_nonlocal_frequency_check():
@@ -39,9 +49,7 @@ def test_fast_nonlocal_frequency_check():
 
 	dipoles = numpy.array([d1])
 
-	dot_pairs = numpy.array([
-		[[-1, -2, -3, 11], [-1, 2, 5, 10]]
-	])
+	dot_pairs = numpy.array([[[-1, -2, -3, 11], [-1, 2, 5, 10]]])
 
 	with pytest.raises(ValueError):
 		pdme.util.fast_nonlocal_spectrum.fast_s_nonlocal(dot_pairs, dipoles)

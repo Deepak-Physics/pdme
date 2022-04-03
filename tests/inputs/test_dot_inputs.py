@@ -8,7 +8,12 @@ def test_inputs_with_frequency_range():
 	frequencies = [5, 7, 9]
 
 	expected = [
-		([1, 2, 3], 5), ([1, 2, 3], 7), ([1, 2, 3], 9), ([2, 4, 6], 7), ([2, 4, 6], 9), ([2, 4, 6], 5)
+		([1, 2, 3], 5),
+		([1, 2, 3], 7),
+		([1, 2, 3], 9),
+		([2, 4, 6], 7),
+		([2, 4, 6], 9),
+		([2, 4, 6], 5),
 	]
 
 	actual = pdme.inputs.inputs_with_frequency_range([dot1, dot2], frequencies)
@@ -23,7 +28,9 @@ def test_input_pairs_with_frequency_range():
 	frequencies = [5, 7, 9]
 
 	expected = [
-		([1, 2, 3], [2, 4, 6], 5), ([1, 2, 3], [2, 4, 6], 7), ([1, 2, 3], [2, 4, 6], 9)
+		([1, 2, 3], [2, 4, 6], 5),
+		([1, 2, 3], [2, 4, 6], 7),
+		([1, 2, 3], [2, 4, 6], 9),
 	]
 
 	actual = pdme.inputs.input_pairs_with_frequency_range([dot1, dot2], frequencies)

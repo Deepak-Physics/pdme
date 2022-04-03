@@ -18,5 +18,7 @@ def test_dipole_to_array():
 
 	arrangement = pdme.measurement.OscillatingDipoleArrangement([d1, d2])
 	numpy.testing.assert_array_equal(
-		[expected1, expected2], arrangement.to_numpy_array(), err_msg="Didn't convert multiple dipoles right"
+		[expected1, expected2],
+		arrangement.to_numpy_array(),
+		err_msg="Didn't convert multiple dipoles right",
 	)

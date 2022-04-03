@@ -20,19 +20,35 @@ def test_unrestricted_model_cost_and_jac_single():
 	expected_cost = [0.0000946746]
 	actual_cost = cost_function(pt)
 
-	numpy.testing.assert_allclose(actual_cost, expected_cost, err_msg="Cost wasn't as expected.", rtol=1e-6, atol=1e-11)
+	numpy.testing.assert_allclose(
+		actual_cost,
+		expected_cost,
+		err_msg="Cost wasn't as expected.",
+		rtol=1e-6,
+		atol=1e-11,
+	)
 
 	jac_function = model.jac([dot])
 
 	expected_jac = [
 		[
-			0.00007149165379592005, 0, 0.0002859666151836802,
-			-0.0001009293935942401, 0, -0.0002607342667851202,
-			0.0001035396365320221
+			0.00007149165379592005,
+			0,
+			0.0002859666151836802,
+			-0.0001009293935942401,
+			0,
+			-0.0002607342667851202,
+			0.0001035396365320221,
 		]
 	]
 	actual_jac = jac_function(pt)
 
 	logging.warning(actual_jac)
 
-	numpy.testing.assert_allclose(actual_jac, expected_jac, err_msg="Jac wasn't as expected.", rtol=1e-6, atol=1e-11)
+	numpy.testing.assert_allclose(
+		actual_jac,
+		expected_jac,
+		err_msg="Jac wasn't as expected.",
+		rtol=1e-6,
+		atol=1e-11,
+	)

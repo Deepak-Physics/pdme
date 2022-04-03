@@ -14,5 +14,10 @@ def test_unrestricted_model_discretization():
 	assert discretisation.x_step == 10
 	assert discretisation.y_step == 4
 	assert discretisation.z_step == 20
-	numpy.testing.assert_allclose(discretisation.bounds((0, 0, 0, 0, 0, 0)), ((-15, -15, -15, -10, -10, -10, -numpy.inf), (15, 15, 0, 0, -6, 10, numpy.inf)))
-	numpy.testing.assert_allclose(list(discretisation.all_indices()), list(numpy.ndindex((1, 1, 2, 2, 5, 1))))
+	numpy.testing.assert_allclose(
+		discretisation.bounds((0, 0, 0, 0, 0, 0)),
+		((-15, -15, -15, -10, -10, -10, -numpy.inf), (15, 15, 0, 0, -6, 10, numpy.inf)),
+	)
+	numpy.testing.assert_allclose(
+		list(discretisation.all_indices()), list(numpy.ndindex((1, 1, 2, 2, 5, 1)))
+	)

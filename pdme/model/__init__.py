@@ -4,4 +4,11 @@ from pdme.model.unrestricted_model import UnrestrictedModel
 from pdme.model.fixed_dipole_model import FixedDipoleModel
 from pdme.model.fixed_magnitude_model import FixedMagnitudeModel
 
-__all__ = ["Model", "Discretisation", "FixedZPlaneModel", "UnrestrictedModel", "FixedDipoleModel", "FixedMagnitudeModel"]
+__all__ = [
+	"Model",
+	"Discretisation",
+	"FixedZPlaneModel",
+	"UnrestrictedModel",
+	"FixedDipoleModel",
+	"FixedMagnitudeModel",
+]

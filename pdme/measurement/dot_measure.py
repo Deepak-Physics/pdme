@@ -4,19 +4,20 @@ import numpy.typing
 
 
 @dataclass
-class DotMeasurement():
-	'''
+class DotMeasurement:
+	"""
 	Representation of a dot measuring oscillating dipoles.
 
 	Parameters
 	----------
 	v : float
-		The voltage measured at the dot.
+			The voltage measured at the dot.
 	r : numpy.ndarray
-		The position of the dot.
+			The position of the dot.
 	f : float
-		The measurement frequency.
-	'''
+			The measurement frequency.
+	"""
+
 	v: float
 	r: numpy.ndarray
 	f: float
@@ -26,21 +27,22 @@ class DotMeasurement():
 
 
 @dataclass
-class DotRangeMeasurement():
-	'''
+class DotRangeMeasurement:
+	"""
 	Representation of a dot measuring oscillating dipoles.
 
 	Parameters
 	----------
 	v_low : float
-		The lower range of voltage measured at the dot.
+			The lower range of voltage measured at the dot.
 	v_high : float
-		The upper range of voltage measured at the dot.
+			The upper range of voltage measured at the dot.
 	r : numpy.ndarray
-		The position of the dot.
+			The position of the dot.
 	f : float
-		The measurement frequency.
-	'''
+			The measurement frequency.
+	"""
+
 	v_low: float
 	v_high: float
 	r: numpy.ndarray

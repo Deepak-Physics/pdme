@@ -9,8 +9,16 @@ def test_swap_high_low():
 	m1 = DotRangeMeasurement(actual_high, actual_low, 100, 1000)
 	m2 = DotRangeMeasurement(actual_low, actual_high, 100, 1000)
 
-	numpy.testing.assert_array_equal([m1.v_low, m1.v_high], [actual_low, actual_high], err_msg="Highs were wrong with swap")
-	numpy.testing.assert_array_equal([m2.v_low, m2.v_high], [actual_low, actual_high], err_msg="Highs were wrong without swap")
+	numpy.testing.assert_array_equal(
+		[m1.v_low, m1.v_high],
+		[actual_low, actual_high],
+		err_msg="Highs were wrong with swap",
+	)
+	numpy.testing.assert_array_equal(
+		[m2.v_low, m2.v_high],
+		[actual_low, actual_high],
+		err_msg="Highs were wrong without swap",
+	)
 
 
 def test_swap_high_low_negative():
@@ -19,8 +27,16 @@ def test_swap_high_low_negative():
 	m1 = DotRangeMeasurement(actual_high, actual_low, 100, 1000)
 	m2 = DotRangeMeasurement(actual_low, actual_high, 100, 1000)
 
-	numpy.testing.assert_array_equal([m1.v_low, m1.v_high], [actual_low, actual_high], err_msg="Highs were wrong with swap, negative")
-	numpy.testing.assert_array_equal([m2.v_low, m2.v_high], [actual_low, actual_high], err_msg="Highs were wrong without swap, negative")
+	numpy.testing.assert_array_equal(
+		[m1.v_low, m1.v_high],
+		[actual_low, actual_high],
+		err_msg="Highs were wrong with swap, negative",
+	)
+	numpy.testing.assert_array_equal(
+		[m2.v_low, m2.v_high],
+		[actual_low, actual_high],
+		err_msg="Highs were wrong without swap, negative",
+	)
 
 
 def test_swap_high_low_pair():
@@ -29,8 +45,16 @@ def test_swap_high_low_pair():
 	m1 = DotPairRangeMeasurement(actual_high, actual_low, 100, 1000, 10000)
 	m2 = DotPairRangeMeasurement(actual_low, actual_high, 100, 1000, 10000)
 
-	numpy.testing.assert_array_equal([m1.v_low, m1.v_high], [actual_low, actual_high], err_msg="Highs were wrong with swap")
-	numpy.testing.assert_array_equal([m2.v_low, m2.v_high], [actual_low, actual_high], err_msg="Highs were wrong without swap")
+	numpy.testing.assert_array_equal(
+		[m1.v_low, m1.v_high],
+		[actual_low, actual_high],
+		err_msg="Highs were wrong with swap",
+	)
+	numpy.testing.assert_array_equal(
+		[m2.v_low, m2.v_high],
+		[actual_low, actual_high],
+		err_msg="Highs were wrong without swap",
+	)
 
 
 def test_swap_high_low_pair_negative():
@@ -39,5 +63,13 @@ def test_swap_high_low_pair_negative():
 	m1 = DotPairRangeMeasurement(actual_high, actual_low, 100, 1000, 10000)
 	m2 = DotPairRangeMeasurement(actual_low, actual_high, 100, 1000, 10000)
 
-	numpy.testing.assert_array_equal([m1.v_low, m1.v_high], [actual_low, actual_high], err_msg="Highs were wrong with swap, negative")
-	numpy.testing.assert_array_equal([m2.v_low, m2.v_high], [actual_low, actual_high], err_msg="Highs were wrong without swap, negative")
+	numpy.testing.assert_array_equal(
+		[m1.v_low, m1.v_high],
+		[actual_low, actual_high],
+		err_msg="Highs were wrong with swap, negative",
+	)
+	numpy.testing.assert_array_equal(
+		[m2.v_low, m2.v_high],
+		[actual_low, actual_high],
+		err_msg="Highs were wrong without swap, negative",
+	)
