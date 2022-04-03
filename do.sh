@@ -5,15 +5,15 @@
 set -Eeuo pipefail # -e "Automatic exit from bash shell script on error"  -u "Treat unset variables and parameters as errors"
 
 build() {
-   echo "I am ${FUNCNAME[0]}ing"
-   poetry build
+	echo "I am ${FUNCNAME[0]}ing"
+	poetry build
 }
 
 test() {
-   echo "I am ${FUNCNAME[0]}ing"
-   poetry run flake8 pdme tests
-   poetry run mypy pdme
-   poetry run pytest
+	echo "I am ${FUNCNAME[0]}ing"
+	poetry run flake8 pdme tests
+	poetry run mypy pdme
+	poetry run pytest
 }
 
 htmlcov() {
@@ -21,11 +21,11 @@ htmlcov() {
 }
 
 release() {
-   ./scripts/release.sh
+	./scripts/release.sh
 }
 
 all() {
-   build && test
+	build && test
 }
 
 "$@" # <- execute the task
