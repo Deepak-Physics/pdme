@@ -55,6 +55,9 @@ class OscillatingDipole():
 	def s_for_dot_pair(self, r1: numpy.ndarray, r2: numpy.ndarray, f: float) -> float:
 		return self._alpha(r1) * self._alpha(r2) * self._b(f)
 
+	def to_flat_array(self) -> numpy.ndarray:
+		return numpy.concatenate([self.p, self.s, numpy.array([self.w])])
+
 
 class OscillatingDipoleArrangement():
 	'''
@@ -112,3 +115,9 @@ class OscillatingDipoleArrangement():
 		For a series of pairs of points, each with three coordinates and a frequency, and also a lower error range and upper error range, return a list of the corresponding DotPairRangeMeasurements.
 		'''
 		return [self.get_percent_range_dot_pair_measurement(pair_input, low_percent, high_percent) for pair_input in pair_inputs]
+
+	def to_numpy_array(self) -> numpy.ndarray:
+		'''
+		Returns a numpy array with the canonical representation of each dipole in a nx7 numpy array.
+		'''
+		return numpy.array([dipole.to_flat_array() for dipole in self.dipoles])
