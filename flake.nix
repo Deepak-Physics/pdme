@@ -13,6 +13,9 @@
         (final: prev: {
           # The application
           pdme = prev.poetry2nix.mkPoetryApplication {
+            overrides = [
+              prev.poetry2nix.defaultPoetryOverrides
+            ];
             projectDir = ./.;
           };
         })
@@ -30,5 +33,12 @@
         };
 
         defaultApp = pkgs.pdme;
+        devShell = pkgs.mkShell {
+          buildInputs = [
+            pkgs.poetry
+            pkgs.pdme
+          ];
+        };
+
       }));
 }
