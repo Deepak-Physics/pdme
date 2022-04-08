@@ -43,6 +43,7 @@
           buildInputs = [
             pkgs.poetry
             pkgs.pdmeEnv
+            pkgs.pdme
           ];
         };
 
