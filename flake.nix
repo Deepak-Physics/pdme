@@ -18,6 +18,12 @@
             ];
             projectDir = ./.;
           };
+          pdmeEnv = prev.poetry2nix.mkPoetryEnv {
+            overrides = [
+              prev.poetry2nix.defaultPoetryOverrides
+            ];
+            projectDir = ./.;
+          };
         })
       ];
     } // (flake-utils.lib.eachDefaultSystem (system:
@@ -36,7 +42,7 @@
         devShell = pkgs.mkShell {
           buildInputs = [
             pkgs.poetry
-            pkgs.pdme
+            pkgs.pdmeEnv
           ];
         };
 
