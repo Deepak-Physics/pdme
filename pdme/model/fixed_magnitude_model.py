@@ -88,20 +88,28 @@ class FixedMagnitudeModel(Model):
 			[OscillatingDipole(numpy.array([px, py, pz]), s_pts, frequency)]
 		)
 
-	def get_n_single_dipoles(self, n: int, max_frequency: float) -> numpy.ndarray:
+	def get_n_single_dipoles(
+		self, n: int, max_frequency: float, rng_to_use: numpy.random.Generator = None
+	) -> numpy.ndarray:
 		# psw
 
-		theta = 2 * numpy.pi * self.rng.random(n)
-		phi = numpy.arccos(2 * self.rng.random(n) - 1)
+		rng: numpy.random.Generator
+		if rng_to_use is None:
+			rng = self.rng
+		else:
+			rng = rng_to_use
+
+		theta = 2 * numpy.pi * rng.random(n)
+		phi = numpy.arccos(2 * rng.random(n) - 1)
 		px = self.pfixed * numpy.cos(theta) * numpy.sin(phi)
 		py = self.pfixed * numpy.sin(theta) * numpy.sin(phi)
 		pz = self.pfixed * numpy.cos(phi)
 
-		sx = self.rng.uniform(self.xmin, self.xmax, n)
-		sy = self.rng.uniform(self.ymin, self.ymax, n)
-		sz = self.rng.uniform(self.zmin, self.zmax, n)
+		sx = rng.uniform(self.xmin, self.xmax, n)
+		sy = rng.uniform(self.ymin, self.ymax, n)
+		sz = rng.uniform(self.zmin, self.zmax, n)
 
-		w = self.rng.uniform(1, max_frequency, n)
+		w = rng.uniform(1, max_frequency, n)
 
 		return numpy.array([px, py, pz, sx, sy, sz, w]).T
 

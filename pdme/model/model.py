@@ -1,4 +1,5 @@
 import numpy
+import numpy.random
 import scipy.optimize
 from typing import Callable, Sequence, Tuple, List
 from pdme.measurement import (
@@ -30,7 +31,9 @@ class Model:
 	def get_dipoles(self, frequency: float) -> OscillatingDipoleArrangement:
 		raise NotImplementedError
 
-	def get_n_single_dipoles(self, n: int, max_frequency: float) -> numpy.ndarray:
+	def get_n_single_dipoles(
+		self, n: int, max_frequency: float, rng: numpy.random.Generator = None
+	) -> numpy.ndarray:
 		raise NotImplementedError
 
 	def solution_single_dipole(self, pt: numpy.ndarray) -> OscillatingDipole:
