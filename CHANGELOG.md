@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.2](https://gitea.deepak.science:2222/physics/pdme/compare/0.6.1...0.6.2) (2022-04-18)
+
+
+### Features
+
+* adds methods for converting pdme objects into flatter numpy arrays ([5c6c4c7](https://gitea.deepak.science:2222/physics/pdme/commit/5c6c4c79d1b55d8d6bf70e2e54226d282d831f66))
+* Allows you to pass in rng to generate monte carlo dipoles ([ab244ed](https://gitea.deepak.science:2222/physics/pdme/commit/ab244ed91dede1e3c29fe94ea96089f4c15aa1fb))
+
 ### [0.6.1](https://gitea.deepak.science:2222/physics/pdme/compare/0.6.0...0.6.1) (2022-03-28)
 
 
