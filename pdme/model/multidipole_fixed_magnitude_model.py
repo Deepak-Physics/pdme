@@ -76,7 +76,10 @@ class MultipleDipoleFixedMagnitudeModel(DipoleModel):
 		return OscillatingDipoleArrangement(dipoles)
 
 	def get_monte_carlo_dipole_inputs(
-		self, monte_carlo_n: int, max_frequency: float, rng_to_use: numpy.random.Generator = None
+		self,
+		monte_carlo_n: int,
+		max_frequency: float,
+		rng_to_use: numpy.random.Generator = None,
 	) -> numpy.ndarray:
 
 		rng: numpy.random.Generator
