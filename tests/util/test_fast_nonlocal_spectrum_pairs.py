@@ -36,7 +36,9 @@ def test_fast_nonlocal_calc_multidipole():
 	pdme.util.fast_nonlocal_spectrum._logger.setLevel(logging.DEBUG)
 
 	numpy.testing.assert_allclose(
-		pdme.util.fast_nonlocal_spectrum.fast_s_nonlocal_dipoleses(dot_pairs, dipoleses),
+		pdme.util.fast_nonlocal_spectrum.fast_s_nonlocal_dipoleses(
+			dot_pairs, dipoleses
+		),
 		expected,
 		err_msg="nonlocal voltages at dot aren't as expected for dipoleses.",
 	)

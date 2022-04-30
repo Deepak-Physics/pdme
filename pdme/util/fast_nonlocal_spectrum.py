@@ -92,7 +92,7 @@ def fast_s_nonlocal_dipoleses(
 		_logger.debug(f"alphses1: {alphses1}")
 		_logger.debug(f"alphses2: {alphses2}")
 
-	bses = (1 / numpy.pi) * (ws[:, None, :] / (f1s[:, None]**2 + ws[:, None, :] ** 2))
+	bses = (1 / numpy.pi) * (ws[:, None, :] / (f1s[:, None] ** 2 + ws[:, None, :] ** 2))
 	if _logger.isEnabledFor(logging.DEBUG):
 		_logger.debug(f"bses: {bses}")
 
