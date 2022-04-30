@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://gitea.deepak.science:2222/physics/pdme/compare/0.7.0...0.8.0) (2022-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* single dipole still outputs collection now to make interface consistent
+
+### Features
+
+* single dipole still outputs collection now to make interface consistent ([cb3c280](https://gitea.deepak.science:2222/physics/pdme/commit/cb3c280464aa2c4b0ec9320e6a319f4a454a0e9f))
+
 ## [0.7.0](https://gitea.deepak.science:2222/physics/pdme/compare/0.6.2...0.7.0) (2022-04-30)
 
 
