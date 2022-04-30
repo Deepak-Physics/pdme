@@ -1,7 +1,7 @@
-from pdme.model.model import Model
-from pdme.model.fixed_magnitude_model import FixedMagnitudeModel
+from pdme.model.model import DipoleModel
+from pdme.model.fixed_magnitude_model import SingleDipoleFixedMagnitudeModel
 
 __all__ = [
-	"Model",
-	"FixedMagnitudeModel",
+	"DipoleModel",
+	"SingleDipoleFixedMagnitudeModel",
 ]

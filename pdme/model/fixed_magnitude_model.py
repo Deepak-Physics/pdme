@@ -1,23 +1,20 @@
 import numpy
 import numpy.random
-from pdme.model.model import Model
+from pdme.model.model import DipoleModel
 from pdme.measurement import (
 	OscillatingDipole,
 	OscillatingDipoleArrangement,
 )
 
 
-class FixedMagnitudeModel(Model):
+class SingleDipoleFixedMagnitudeModel(DipoleModel):
 	"""
-	Model of oscillating dipole with a fixed magnitude, but free rotation.
+	Model of single oscillating dipole with a fixed magnitude, but free rotation.
 
 	Parameters
 	----------
 	pfixed : float
 	The fixed dipole magnitude.
-
-	n : int
-	The number of dipoles to assume.
 	"""
 
 	def __init__(
@@ -42,8 +39,16 @@ class FixedMagnitudeModel(Model):
 	def __repr__(self) -> str:
 		return f"FixedMagnitudeModel({self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.zmin}, {self.zmax}, {self.pfixed})"
 
-	def get_dipoles(self, frequency: float) -> OscillatingDipoleArrangement:
-		theta = numpy.arccos(self.rng.uniform(-1, 1))
+	def get_dipoles(
+		self, max_frequency: float, rng_to_use: numpy.random.Generator = None
+	) -> OscillatingDipoleArrangement:
+		rng: numpy.random.Generator
+		if rng_to_use is None:
+			rng = self.rng
+		else:
+			rng = rng_to_use
+
+		theta = numpy.arccos(rng.uniform(-1, 1))
 		phi = self.rng.uniform(0, 2 * numpy.pi)
 		px = self.pfixed * numpy.sin(theta) * numpy.cos(phi)
 		py = self.pfixed * numpy.sin(theta) * numpy.sin(phi)
@@ -55,6 +60,7 @@ class FixedMagnitudeModel(Model):
 				self.rng.uniform(self.zmin, self.zmax),
 			)
 		)
+		frequency = self.rng.uniform(0, max_frequency)
 		return OscillatingDipoleArrangement(
 			[OscillatingDipole(numpy.array([px, py, pz]), s_pts, frequency)]
 		)

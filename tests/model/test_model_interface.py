@@ -1,9 +1,9 @@
-from pdme.model import Model
+from pdme.model import DipoleModel
 import pytest
 
 
 def test_model_interface_not_implemented_one_dipoles():
-	model = Model()
+	model = DipoleModel()
 
 	model.point_length = lambda: 2
 
@@ -12,9 +12,9 @@ def test_model_interface_not_implemented_one_dipoles():
 
 
 def test_model_interface_not_implemented_n_dipoles():
-	model = Model()
+	model = DipoleModel()
 
 	model.point_length = lambda: 2
 
 	with pytest.raises(NotImplementedError):
-		model.get_n_single_dipoles(5, 10)
+		model.get_monte_carlo_dipole_inputs(5, 10)
