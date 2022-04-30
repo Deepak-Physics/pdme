@@ -6,6 +6,13 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
+def test_repr_single_dipole_fixed_mag():
+	model = SingleDipoleFixedMagnitudeModel(-10, 10, -5, 5, 2, 3, 5)
+	assert (
+		repr(model) == "SingleDipoleFixedMagnitudeModel(-10, 10, -5, 5, 2, 3, 5)"
+	), "Repr should be what I want."
+
+
 def test_single_dipole_fixed_mag_model_get_dipoles():
 
 	p_fixed = 10
@@ -130,7 +137,9 @@ def test_single_dipole_fixed_mag_model_get_n_dipoles():
 		err_msg="Should have had the expected output dipole array.",
 	)
 	numpy.testing.assert_allclose(
-		model.get_monte_carlo_dipole_inputs(1, max_frequency, numpy.random.default_rng(1234)),
+		model.get_monte_carlo_dipole_inputs(
+			1, max_frequency, numpy.random.default_rng(1234)
+		),
 		expected_dipole_array,
 		err_msg="Should have had the expected output dipole array, even with explicitly passed rng.",
 	)
