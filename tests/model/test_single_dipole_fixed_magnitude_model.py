@@ -1,9 +1,5 @@
 from pdme.model import SingleDipoleFixedMagnitudeModel
 import numpy
-import logging
-
-
-_logger = logging.getLogger(__name__)
 
 
 def test_single_dipole_fixed_mag_model_get_dipoles():
@@ -20,9 +16,6 @@ def test_single_dipole_fixed_mag_model_get_dipoles():
 	expected_s = numpy.array([8.46492468, -2.38307576, 2.31909706])
 	expected_w = 0.5904561648332141
 
-	_logger.error(dipoles[0].p)
-	_logger.error(dipoles[0].s)
-	_logger.error(dipoles[0].w)
 	numpy.testing.assert_allclose(
 		dipoles[0].p, expected_p, err_msg="Random single dipole p wasn't as expected"
 	)
