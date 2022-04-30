@@ -44,6 +44,23 @@ def test_multiple_dipole_fixed_mag_model_get_dipoles():
 	)
 
 
+def test_multiple_dipole_fixed_mag_model_get_dipoles_multiple():
+
+	p_fixed = 10
+	dipole_count = 5
+
+	model = MultipleDipoleFixedMagnitudeModel(
+		-10, 10, -5, 5, 2, 3, p_fixed, dipole_count
+	)
+
+	dipole_arrangement = model.get_dipoles(20, numpy.random.default_rng(1234))
+	dipoles = dipole_arrangement.dipoles
+
+	assert (
+		len(dipoles) == dipole_count
+	), "Should have had multiple dipole based on count generated."
+
+
 def test_multiple_dipole_fixed_mag_model_get_dipoles_invariant():
 
 	x_min = -10
