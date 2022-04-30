@@ -64,7 +64,7 @@ def fast_vs_for_dipoleses(
 	ases = (numpy.einsum("abcd,acd->abc", diffses, ps) / norms) ** 2
 	_logger.debug(f"ases: {ases}")
 
-	bses = (1 / numpy.pi) * (ws[:, None, :] / (fs[:, None]**2 + ws[:, None, :] ** 2))
+	bses = (1 / numpy.pi) * (ws[:, None, :] / (fs[:, None] ** 2 + ws[:, None, :] ** 2))
 	_logger.debug(f"bses: {bses}")
 	return numpy.einsum("...j->...", ases * bses)
 
