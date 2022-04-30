@@ -2,7 +2,6 @@ import numpy
 import numpy.random
 from pdme.model.model import Model
 from pdme.measurement import (
-	DotMeasurement,
 	OscillatingDipole,
 	OscillatingDipoleArrangement,
 )
@@ -30,7 +29,6 @@ class FixedMagnitudeModel(Model):
 		zmin: float,
 		zmax: float,
 		pfixed: float,
-		n: int,
 	) -> None:
 		self.xmin = xmin
 		self.xmax = xmax
@@ -39,34 +37,10 @@ class FixedMagnitudeModel(Model):
 		self.zmin = zmin
 		self.zmax = zmax
 		self.pfixed = pfixed
-		self._n = n
 		self.rng = numpy.random.default_rng()
 
 	def __repr__(self) -> str:
-		return f"FixedMagnitudeModel({self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.zmin}, {self.zmax}, {self.pfixed}, {self.n()})"
-
-	def solution_single_dipole(self, pt: numpy.ndarray) -> OscillatingDipole:
-		# assume length is 6, who needs error checking.
-		p_theta = pt[0]
-		p_phi = pt[1]
-		s = pt[2:5]
-		w = pt[5]
-
-		p = numpy.array(
-			[
-				self.pfixed * numpy.sin(p_theta) * numpy.cos(p_phi),
-				self.pfixed * numpy.sin(p_theta) * numpy.sin(p_phi),
-				self.pfixed * numpy.cos(p_theta),
-			]
-		)
-		return OscillatingDipole(p, s, w)
-
-	def point_length(self) -> int:
-		"""
-		Dipole is constrained magnitude, but free orientation.
-		Six degrees of freedom: (p_theta, p_phi, sx, sy, sz, w).
-		"""
-		return 6
+		return f"FixedMagnitudeModel({self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.zmin}, {self.zmax}, {self.pfixed})"
 
 	def get_dipoles(self, frequency: float) -> OscillatingDipoleArrangement:
 		theta = numpy.arccos(self.rng.uniform(-1, 1))
@@ -109,24 +83,3 @@ class FixedMagnitudeModel(Model):
 		w = rng.uniform(1, max_frequency, n)
 
 		return numpy.array([px, py, pz, sx, sy, sz, w]).T
-
-	def n(self) -> int:
-		return self._n
-
-	def v_for_point_at_dot(self, dot: DotMeasurement, pt: numpy.ndarray) -> float:
-		p_theta = pt[0]
-		p_phi = pt[1]
-		s = pt[2:5]
-		w = pt[5]
-
-		p = numpy.array(
-			[
-				self.pfixed * numpy.sin(p_theta) * numpy.cos(p_phi),
-				self.pfixed * numpy.sin(p_theta) * numpy.sin(p_phi),
-				self.pfixed * numpy.cos(p_theta),
-			]
-		)
-		diff = dot.r - s
-		alpha = p.dot(diff) / (numpy.linalg.norm(diff) ** 3)
-		b = (1 / numpy.pi) * (w / (w**2 + dot.f**2))
-		return alpha**2 * b
