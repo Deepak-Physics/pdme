@@ -49,18 +49,18 @@ class SingleDipoleFixedMagnitudeModel(DipoleModel):
 			rng = rng_to_use
 
 		theta = numpy.arccos(rng.uniform(-1, 1))
-		phi = self.rng.uniform(0, 2 * numpy.pi)
+		phi = rng.uniform(0, 2 * numpy.pi)
 		px = self.pfixed * numpy.sin(theta) * numpy.cos(phi)
 		py = self.pfixed * numpy.sin(theta) * numpy.sin(phi)
 		pz = self.pfixed * numpy.cos(theta)
 		s_pts = numpy.array(
 			(
-				self.rng.uniform(self.xmin, self.xmax),
-				self.rng.uniform(self.ymin, self.ymax),
-				self.rng.uniform(self.zmin, self.zmax),
+				rng.uniform(self.xmin, self.xmax),
+				rng.uniform(self.ymin, self.ymax),
+				rng.uniform(self.zmin, self.zmax),
 			)
 		)
-		frequency = self.rng.uniform(0, max_frequency)
+		frequency = rng.uniform(0, max_frequency)
 		return OscillatingDipoleArrangement(
 			[OscillatingDipole(numpy.array([px, py, pz]), s_pts, frequency)]
 		)
