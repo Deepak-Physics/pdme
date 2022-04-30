@@ -25,11 +25,19 @@ def test_model_interface_not_implemented_cost():
 		cost([1, 2])
 
 
-def test_model_interface_not_implemented_jac():
+def test_model_interface_not_implemented_one_dipoles():
 	model = Model()
 
 	model.point_length = lambda: 2
 
 	with pytest.raises(NotImplementedError):
-		jac = model.jac([DotMeasurement(0, [1, 2, 3], 4)])
-		jac([1, 2])
+		model.get_dipoles(5)
+
+
+def test_model_interface_not_implemented_n_dipoles():
+	model = Model()
+
+	model.point_length = lambda: 2
+
+	with pytest.raises(NotImplementedError):
+		model.get_n_single_dipoles(5, 10)
