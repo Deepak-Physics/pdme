@@ -29,6 +29,6 @@ class DipoleModel:
 		self, n: int, max_frequency: float, rng: numpy.random.Generator = None
 	) -> numpy.ndarray:
 		"""
-		For a given DipoleModel, gets a set of dipole collections as a n x whatever numpy array.
+		For a given DipoleModel, gets a set of dipole collections as a monte_carlo_n x dipole_count x 7 numpy array.
 		"""
 		raise NotImplementedError
