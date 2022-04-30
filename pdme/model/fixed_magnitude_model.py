@@ -1,9 +1,6 @@
 import numpy
 import numpy.random
-from dataclasses import dataclass
-from typing import Sequence, Tuple
-import scipy.optimize
-from pdme.model.model import Model, Discretisation
+from pdme.model.model import Model
 from pdme.measurement import (
 	DotMeasurement,
 	OscillatingDipole,
@@ -182,96 +179,3 @@ class FixedMagnitudeModel(Model):
 		w_div = alpha**2 * (1 / numpy.pi) * ((f2 - w2) / ((f2 + w2) ** 2))
 
 		return numpy.concatenate((theta_div, phi_div, r_divs, w_div), axis=None)
-
-
-@dataclass
-class FixedMagnitudeDiscretisation(Discretisation):
-	"""
-	Representation of a discretisation of a FixedMagnitudeDiscretisation.
-	Also captures a rough maximum value of dipole.
-
-	Parameters
-	----------
-	model : FixedMagnitudeModel
-	The parent model of the discretisation.
-
-	num_ptheta: int
-	The number of partitions of ptheta.
-
-	num_pphi: int
-	The number of partitions of pphi.
-
-	num_x : int
-	The number of partitions of the x axis.
-
-	num_y : int
-	The number of partitions of the y axis.
-
-	num_z : int
-	The number of partitions of the z axis.
-	"""
-
-	model: FixedMagnitudeModel
-	num_ptheta: int
-	num_pphi: int
-	num_x: int
-	num_y: int
-	num_z: int
-
-	def __post_init__(self):
-		self.cell_count = self.num_x * self.num_y * self.num_z
-		self.x_step = (self.model.xmax - self.model.xmin) / self.num_x
-		self.y_step = (self.model.ymax - self.model.ymin) / self.num_y
-		self.z_step = (self.model.zmax - self.model.zmin) / self.num_z
-		self.h_step = 2 / self.num_ptheta
-		self.phi_step = 2 * numpy.pi / self.num_pphi
-
-	def bounds(self, index: Tuple[float, ...]) -> Tuple:
-		pthetai, pphii, xi, yi, zi = index
-
-		# For this model, a point is (p_theta, p_phi, sx, sx, sy, w).
-		# We want to keep w unbounded, restrict sx, sy, sz, px and py based on step.
-		return (
-			[
-				numpy.arccos(1 - pthetai * self.h_step),
-				pphii * self.phi_step,
-				xi * self.x_step + self.model.xmin,
-				yi * self.y_step + self.model.ymin,
-				zi * self.z_step + self.model.zmin,
-				-numpy.inf,
-			],
-			[
-				numpy.arccos(1 - (pthetai + 1) * self.h_step),
-				(pphii + 1) * self.phi_step,
-				(xi + 1) * self.x_step + self.model.xmin,
-				(yi + 1) * self.y_step + self.model.ymin,
-				(zi + 1) * self.z_step + self.model.zmin,
-				numpy.inf,
-			],
-		)
-
-	def get_model(self) -> Model:
-		return self.model
-
-	def all_indices(self) -> numpy.ndindex:
-		# see https://github.com/numpy/numpy/issues/20706 for why this is a mypy problem.
-		return numpy.ndindex(
-			(self.num_ptheta, self.num_pphi, self.num_x, self.num_y, self.num_z)
-		)  # type:ignore
-
-	def solve_for_index(
-		self, dots: Sequence[DotMeasurement], index: Tuple[float, ...]
-	) -> scipy.optimize.OptimizeResult:
-		bounds = self.bounds(index)
-		ptheta_mean = (bounds[0][0] + bounds[1][0]) / 2
-		pphi_mean = (bounds[0][1] + bounds[1][1]) / 2
-		sx_mean = (bounds[0][2] + bounds[1][2]) / 2
-		sy_mean = (bounds[0][3] + bounds[1][3]) / 2
-		sz_mean = (bounds[0][4] + bounds[1][4]) / 2
-		return self.model.solve(
-			dots,
-			initial_pt=numpy.array(
-				[ptheta_mean, pphi_mean, sx_mean, sy_mean, sz_mean, 0.1]
-			),
-			bounds=bounds,
-		)

@@ -1,7 +1,7 @@
 import numpy
 import numpy.random
 import scipy.optimize
-from typing import Callable, Sequence, Tuple, List
+from typing import Callable, Sequence, List
 from pdme.measurement import (
 	DotMeasurement,
 	OscillatingDipoleArrangement,
@@ -136,19 +136,3 @@ class Model:
 			result.x, self.point_length()
 		)
 		return result
-
-
-class Discretisation:
-	def bounds(self, index: Tuple[float, ...]) -> Tuple:
-		raise NotImplementedError
-
-	def all_indices(self) -> numpy.ndindex:
-		raise NotImplementedError
-
-	def solve_for_index(
-		self, dots: Sequence[DotMeasurement], index: Tuple
-	) -> scipy.optimize.OptimizeResult:
-		raise NotImplementedError
-
-	def get_model(self) -> Model:
-		raise NotImplementedError
