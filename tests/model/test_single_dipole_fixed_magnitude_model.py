@@ -1,5 +1,9 @@
 from pdme.model import SingleDipoleFixedMagnitudeModel
 import numpy
+import logging
+
+
+_logger = logging.getLogger(__name__)
 
 
 def test_single_dipole_fixed_mag_model_get_dipoles():
@@ -87,3 +91,46 @@ def test_single_dipole_fixed_mag_model_get_dipoles_invariant():
 			p_fixed,
 			err_msg="Should have had the expected dipole moment magnitude.",
 		)
+
+
+def test_single_dipole_fixed_mag_model_get_n_dipoles():
+
+	x_min = -10
+	x_max = 10
+	y_min = -5
+	y_max = 5
+	z_min = 2
+	z_max = 3
+	p_fixed = 10
+	max_frequency = 5
+
+	model = SingleDipoleFixedMagnitudeModel(
+		x_min, x_max, y_min, y_max, z_min, z_max, p_fixed
+	)
+	model.rng = numpy.random.default_rng(1234)
+
+	dipole_array = model.get_monte_carlo_dipole_inputs(1, max_frequency)
+	expected_dipole_array = numpy.array(
+		[
+			[
+				9.60483896,
+				-1.41627817,
+				-2.3960853,
+				8.46492468,
+				-2.38307576,
+				2.31909706,
+				1.47236493,
+			]
+		]
+	)
+
+	numpy.testing.assert_allclose(
+		dipole_array,
+		expected_dipole_array,
+		err_msg="Should have had the expected output dipole array.",
+	)
+	numpy.testing.assert_allclose(
+		model.get_monte_carlo_dipole_inputs(1, max_frequency, numpy.random.default_rng(1234)),
+		expected_dipole_array,
+		err_msg="Should have had the expected output dipole array, even with explicitly passed rng.",
+	)

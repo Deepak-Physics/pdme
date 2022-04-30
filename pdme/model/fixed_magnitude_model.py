@@ -65,7 +65,7 @@ class SingleDipoleFixedMagnitudeModel(DipoleModel):
 			[OscillatingDipole(numpy.array([px, py, pz]), s_pts, frequency)]
 		)
 
-	def get_n_single_dipoles(
+	def get_monte_carlo_dipole_inputs(
 		self, n: int, max_frequency: float, rng_to_use: numpy.random.Generator = None
 	) -> numpy.ndarray:
 		# psw
