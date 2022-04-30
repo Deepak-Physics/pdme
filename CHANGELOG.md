@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.1](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.0...0.8.1) (2022-04-30)
+
+
+### Features
+
+* adds multidipole nonlocal spectrum calculations ([8264ca3](https://gitea.deepak.science:2222/physics/pdme/commit/8264ca3d6edb703422229fde57bbb1d726ce5139))
+
 ## [0.8.0](https://gitea.deepak.science:2222/physics/pdme/compare/0.7.0...0.8.0) (2022-04-30)
 
 
