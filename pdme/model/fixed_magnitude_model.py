@@ -37,7 +37,7 @@ class SingleDipoleFixedMagnitudeModel(DipoleModel):
 		self.rng = numpy.random.default_rng()
 
 	def __repr__(self) -> str:
-		return f"FixedMagnitudeModel({self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.zmin}, {self.zmax}, {self.pfixed})"
+		return f"SingleDipoleFixedMagnitudeModel({self.xmin}, {self.xmax}, {self.ymin}, {self.ymax}, {self.zmin}, {self.zmax}, {self.pfixed})"
 
 	def get_dipoles(
 		self, max_frequency: float, rng_to_use: numpy.random.Generator = None
