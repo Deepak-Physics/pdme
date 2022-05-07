@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.1](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.0...0.8.1) (2022-04-30)
+
+
+### Features
+
+* adds multidipole nonlocal spectrum calculations ([8264ca3](https://gitea.deepak.science:2222/physics/pdme/commit/8264ca3d6edb703422229fde57bbb1d726ce5139))
+
+## [0.8.0](https://gitea.deepak.science:2222/physics/pdme/compare/0.7.0...0.8.0) (2022-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* single dipole still outputs collection now to make interface consistent
+
+### Features
+
+* single dipole still outputs collection now to make interface consistent ([cb3c280](https://gitea.deepak.science:2222/physics/pdme/commit/cb3c280464aa2c4b0ec9320e6a319f4a454a0e9f))
+
+## [0.7.0](https://gitea.deepak.science:2222/physics/pdme/compare/0.6.2...0.7.0) (2022-04-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* Changes names of classes to make more clear for dipole model and single dipole fixed magnitude model
+* reduces model to minimal bayes needed stuff
+* Guts the model interface for only the things useful for monte carlo bayes stuff
+* Removes unused models to make refactoring a bit easier
+
+### Features
+
+* adds fast method for calculating multiple dipole calculations ([1bad2f7](https://gitea.deepak.science:2222/physics/pdme/commit/1bad2f743af6a95189448d8929c70a036e6c21ab))
+* adds multidipole fixed mag model ([0c64ed0](https://gitea.deepak.science:2222/physics/pdme/commit/0c64ed02f0d42cd0957be0511a35dc49153a256f))
+* Changes names of classes to make more clear for dipole model and single dipole fixed magnitude model ([7eba331](https://gitea.deepak.science:2222/physics/pdme/commit/7eba3311c7ba90e4404b1a7b7c33df1585a800ba))
+* Guts the model interface for only the things useful for monte carlo bayes stuff ([946945d](https://gitea.deepak.science:2222/physics/pdme/commit/946945d791ed763e435afff7a6ae8c2b1c0e1711))
+* reduces model to minimal bayes needed stuff ([0d5508a](https://gitea.deepak.science:2222/physics/pdme/commit/0d5508a0b5641d98ee6f3484f58c923440c4c2c1))
+* Removes unused models to make refactoring a bit easier ([c04d863](https://gitea.deepak.science:2222/physics/pdme/commit/c04d863d7fa22c98d8542a5f72791b542358ff61))
+
+
+### Bug Fixes
+
+* makes name of method match interface ([029021e](https://gitea.deepak.science:2222/physics/pdme/commit/029021e39328c7ca7a73afcf23d86ad17516982f))
+* makes repr return actual name ([0f78c7c](https://gitea.deepak.science:2222/physics/pdme/commit/0f78c7c2db742d59f2a5ee9da767f35aafa49b78))
+* uses rng passed in correctly ([70d95c8](https://gitea.deepak.science:2222/physics/pdme/commit/70d95c8d6d5af10f926d8729a5a0eaed9ad8259d))
+
 ### [0.6.2](https://gitea.deepak.science:2222/physics/pdme/compare/0.6.1...0.6.2) (2022-04-18)
 
 
