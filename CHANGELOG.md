@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.2](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.1...0.8.2) (2022-05-07)
+
+
+### Features
+
+* Adds Random count dipole model with binomial type distribution for dipole number ([27cbb36](https://gitea.deepak.science:2222/physics/pdme/commit/27cbb364a6d9625abca6145dafedf0df5743f816))
+
 ### [0.8.1](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.0...0.8.1) (2022-04-30)
 
 
