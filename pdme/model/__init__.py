@@ -7,9 +7,14 @@ from pdme.model.random_count_multidipole_fixed_magnitude_model import (
 	RandomCountMultipleDipoleFixedMagnitudeModel,
 )
 
+from pdme.model.log_spaced_random_choice_model import (
+	LogSpacedRandomCountMultipleDipoleFixedMagnitudeModel,
+)
+
 __all__ = [
 	"DipoleModel",
 	"SingleDipoleFixedMagnitudeModel",
 	"MultipleDipoleFixedMagnitudeModel",
 	"RandomCountMultipleDipoleFixedMagnitudeModel",
+	"LogSpacedRandomCountMultipleDipoleFixedMagnitudeModel",
 ]
