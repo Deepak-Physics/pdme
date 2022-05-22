@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.3](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.2...0.8.3) (2022-05-22)
+
+
+### Features
+
+* Adds log spaced in frequency space model ([7a9fa1b](https://gitea.deepak.science:2222/physics/pdme/commit/7a9fa1ba04a12586ef09c89e35e706817012faab))
+
 ### [0.8.2](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.1...0.8.2) (2022-05-07)
 
 
