@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.4](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.3...0.8.4) (2022-05-26)
+
+
+### Bug Fixes
+
+* probability of occupancy fixed ([01f905a](https://gitea.deepak.science:2222/physics/pdme/commit/01f905a237a2423f5637ee6a0f43e0937c55d2ea))
+
 ### [0.8.3](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.2...0.8.3) (2022-05-22)
 
 
