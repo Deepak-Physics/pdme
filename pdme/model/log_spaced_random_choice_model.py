@@ -111,7 +111,7 @@ class LogSpacedRandomCountMultipleDipoleFixedMagnitudeModel(DipoleModel):
 		theta = 2 * numpy.pi * rng.random(shape)
 		phi = numpy.arccos(2 * rng.random(shape) - 1)
 
-		p_mask = rng.binomial(1, 0.5, shape)
+		p_mask = rng.binomial(1, self.prob_occupancy, shape)
 		p_magnitude = self.pfixed * p_mask
 
 		px = p_magnitude * numpy.cos(theta) * numpy.sin(phi)
