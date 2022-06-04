@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.5](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.4...0.8.5) (2022-06-04)
+
+
+### Features
+
+* adds fixedorientation model ([2cdf46a](https://gitea.deepak.science:2222/physics/pdme/commit/2cdf46afa1492f86b4c403e4c5013cefc89b21d6))
+
 ### [0.8.4](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.3...0.8.4) (2022-05-26)
 
 
