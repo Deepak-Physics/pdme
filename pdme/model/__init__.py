@@ -11,10 +11,15 @@ from pdme.model.log_spaced_random_choice_model import (
 	LogSpacedRandomCountMultipleDipoleFixedMagnitudeModel,
 )
 
+from pdme.model.log_spaced_random_choice_fixed_orientation_model import (
+	LogSpacedRandomCountMultipleDipoleFixedMagnitudeFixedOrientationModel,
+)
+
 __all__ = [
 	"DipoleModel",
 	"SingleDipoleFixedMagnitudeModel",
 	"MultipleDipoleFixedMagnitudeModel",
 	"RandomCountMultipleDipoleFixedMagnitudeModel",
 	"LogSpacedRandomCountMultipleDipoleFixedMagnitudeModel",
+	"LogSpacedRandomCountMultipleDipoleFixedMagnitudeFixedOrientationModel",
 ]
