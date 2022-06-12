@@ -3,7 +3,7 @@
 
   inputs.flake-utils.url = "github:numtide/flake-utils?rev=0f8662f1319ad6abf89b3380dd2722369fc51ade";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs?rev=e194871435cad8ffb1d64b64fb7df3b2b8a10088";
-  inputs.poetry2nix.url = "github:nix-community/poetry2nix?rev=99c79568352799af09edaeefc858d337e6d9c56f";
+  inputs.poetry2nix.url = "github:nix-community/poetry2nix?rev=7b71679fa7df00e1678fc3f1d1d4f5f372341b63";
 
   outputs = { self, nixpkgs, flake-utils, poetry2nix }:
     {
