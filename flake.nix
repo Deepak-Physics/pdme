@@ -48,7 +48,7 @@
           shellHook = ''
             export DO_NIX_CUSTOM=1
           '';
-          packages = [ pkgs.nodejs-16_x ];
+          packages = [ pkgs.nodejs-16_x pkgs.gnupg ];
         };
 
       }));
