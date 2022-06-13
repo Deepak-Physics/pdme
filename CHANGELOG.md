@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.6](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.5...0.8.6) (2022-06-13)
+
+
+### Features
+
+* makes library build system poetry-core ([ed0c6e2](https://gitea.deepak.science:2222/physics/pdme/commit/ed0c6e2858f45fec9b9a673d9b5bc98605e73508))
+
+
+### Bug Fixes
+
+* pyproject build system now core as well ([6277e84](https://gitea.deepak.science:2222/physics/pdme/commit/6277e843d5a7df8eba1878db490d2fae4052af57))
+
 ### [0.8.5](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.4...0.8.5) (2022-06-04)
 
 
