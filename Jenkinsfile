@@ -1,12 +1,5 @@
 pipeline {
-	agent {
-	  kubernetes {
-		label 'pdme'  // all your pods will be named with this prefix, followed by a unique id
-		idleMinutes 5  // how long the pod will live after no jobs have run on it
-		yamlFile 'jenkins/ci-agent-pod.yaml'  // path to the pod definition relative to the root of our project
-		defaultContainer 'poetry'  // define a default container if more than a few stages use it, will default to jnlp container
-	  }
-	}
+	agent none
 
 	options {
 		parallelsAlwaysFailFast()
@@ -17,6 +10,15 @@ pipeline {
 		stage('Build All') {
 			parallel {
 				stage('Build') {
+					agent {
+						kubernetes {
+						label 'pdme'  // all your pods will be named with this prefix, followed by a unique id
+						idleMinutes 5  // how long the pod will live after no jobs have run on it
+						yamlFile 'jenkins/ci-agent-pod.yaml'  // path to the pod definition relative to the root of our project
+						defaultContainer 'poetry'  // define a default container if more than a few stages use it, will default to jnlp container
+						}
+					}
+
 					steps {
 						echo 'Building...'
 						sh 'python --version'
@@ -30,7 +32,7 @@ pipeline {
 							label 'pdme'  // all your pods will be named with this prefix, followed by a unique id
 							idleMinutes 5  // how long the pod will live after no jobs have run on it
 							yamlFile 'jenkins/nix-agent.yaml'  // path to the pod definition relative to the root of our project
-							defaultContainer 'nix-builder'  // define a default container if more than a few stages use it, will default to jnlp container
+							defaultContainer 'nixbuilder'  // define a default container if more than a few stages use it, will default to jnlp container
 						}
 					}
 
@@ -42,6 +44,15 @@ pipeline {
 			}
 		}
 		stage('Test') {
+			agent {
+				kubernetes {
+				label 'pdme'  // all your pods will be named with this prefix, followed by a unique id
+				idleMinutes 5  // how long the pod will live after no jobs have run on it
+				yamlFile 'jenkins/ci-agent-pod.yaml'  // path to the pod definition relative to the root of our project
+				defaultContainer 'poetry'  // define a default container if more than a few stages use it, will default to jnlp container
+				}
+			}
+
 			parallel{
 				stage('pytest') {
 					steps {
@@ -62,6 +73,15 @@ pipeline {
 		}
 
 		stage('Deploy') {
+			agent {
+				kubernetes {
+				label 'pdme'  // all your pods will be named with this prefix, followed by a unique id
+				idleMinutes 5  // how long the pod will live after no jobs have run on it
+				yamlFile 'jenkins/ci-agent-pod.yaml'  // path to the pod definition relative to the root of our project
+				defaultContainer 'poetry'  // define a default container if more than a few stages use it, will default to jnlp container
+				}
+			}
+
 			environment {
 				PYPI=credentials("pypi-pdme")
 			}
@@ -77,6 +97,7 @@ pipeline {
 
 	}
 	post {
+
 		always {
 			echo 'This will always run'
 			junit 'pytest.xml'
