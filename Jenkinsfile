@@ -13,12 +13,32 @@ pipeline {
 	}
 
 	stages {
-		stage('Build') {
-			steps {
-				echo 'Building...'
-				sh 'python --version'
-				sh 'poetry --version'
-				sh 'poetry install'
+
+		stage('Build All') {
+			parallel {
+				stage('Build') {
+					steps {
+						echo 'Building...'
+						sh 'python --version'
+						sh 'poetry --version'
+						sh 'poetry install'
+					}
+				}
+				stage('Nix Build') {
+					agent {
+						kubernetes {
+							label 'pdme'  // all your pods will be named with this prefix, followed by a unique id
+							idleMinutes 5  // how long the pod will live after no jobs have run on it
+							yamlFile 'jenkins/nix-agent.yaml'  // path to the pod definition relative to the root of our project
+							defaultContainer 'nix-builder'  // define a default container if more than a few stages use it, will default to jnlp container
+						}
+					}
+
+					steps {
+						echo 'Building...'
+						sh 'nix build .'
+					}
+				}
 			}
 		}
 		stage('Test') {
