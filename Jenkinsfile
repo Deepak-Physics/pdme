@@ -70,15 +70,15 @@ pipeline {
 							}
 						}
 						stage('lint') {
-							container("nixbuilder") {
-								steps {
+							steps {
+								container("nixbuilder") {
 									sh 'flake8 pdme tests'
 								}
 							}
 						}
 						stage('mypy') {
-							container("nixbuilder") {
-								steps {
+							steps {
+								container("nixbuilder") {
 									sh 'poetry run mypy pdme'
 								}
 							}
