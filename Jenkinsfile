@@ -39,49 +39,42 @@ pipeline {
 				}
 			}
 		}
-		stage('Test all') {
+
+		stage('Test') {
 			parallel {
-				stage('Test') {
-					parallel{
-						stage('pytest') {
-							steps {
-								sh 'poetry run pytest'
-							}
-						}
-						stage('lint') {
-							steps {
-								sh 'poetry run flake8 pdme tests'
-							}
-						}
-						stage('mypy') {
-							steps {
-								sh 'poetry run mypy pdme'
-							}
+				stage('pytest') {
+					steps {
+						sh 'poetry run pytest'
+					}
+				}
+				stage('lint') {
+					steps {
+						sh 'poetry run flake8 pdme tests'
+					}
+				}
+				stage('mypy') {
+					steps {
+						sh 'poetry run mypy pdme'
+					}
+				}
+				stage('nix pytest') {
+					steps {
+						container("nixbuilder") {
+							sh 'pytest'
 						}
 					}
 				}
-				stage('Nix Test') {
-					parallel{
-						stage('pytest') {
-							steps {
-								container("nixbuilder") {
-									sh 'pytest'
-								}
-							}
+				stage('nix lint') {
+					steps {
+						container("nixbuilder") {
+							sh 'flake8 pdme tests'
 						}
-						stage('lint') {
-							steps {
-								container("nixbuilder") {
-									sh 'flake8 pdme tests'
-								}
-							}
-						}
-						stage('mypy') {
-							steps {
-								container("nixbuilder") {
-									sh 'poetry run mypy pdme'
-								}
-							}
+					}
+				}
+				stage('nix mypy') {
+					steps {
+						container("nixbuilder") {
+							sh 'mypy pdme'
 						}
 					}
 				}
