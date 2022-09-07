@@ -31,26 +31,58 @@ pipeline {
 
 							echo 'Building on nix...'
 							sh 'nix --version'
+							sh 'nix develop . -c python --version'
+							sh 'nix develop . -c poetry --version'
+							sh 'nix develop . -c poetry install'
 						}
 					}
 				}
 			}
 		}
-		stage('Test') {
-			parallel{
-				stage('pytest') {
-					steps {
-						sh 'poetry run pytest'
+		stage('Test all') {
+			parallel {
+				stage('Test') {
+					parallel{
+						stage('pytest') {
+							steps {
+								sh 'poetry run pytest'
+							}
+						}
+						stage('lint') {
+							steps {
+								sh 'poetry run flake8 pdme tests'
+							}
+						}
+						stage('mypy') {
+							steps {
+								sh 'poetry run mypy pdme'
+							}
+						}
 					}
 				}
-				stage('lint') {
-					steps {
-						sh 'poetry run flake8 pdme tests'
-					}
-				}
-				stage('mypy') {
-					steps {
-						sh 'poetry run mypy pdme'
+				stage('Nix Test') {
+					parallel{
+						stage('pytest') {
+							steps {
+								container("nixbuilder") {
+									sh 'pytest'
+								}
+							}
+						}
+						stage('lint') {
+							container("nixbuilder") {
+								steps {
+									sh 'flake8 pdme tests'
+								}
+							}
+						}
+						stage('mypy') {
+							container("nixbuilder") {
+								steps {
+									sh 'poetry run mypy pdme'
+								}
+							}
+						}
 					}
 				}
 			}
