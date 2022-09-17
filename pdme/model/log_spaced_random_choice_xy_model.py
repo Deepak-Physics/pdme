@@ -107,15 +107,14 @@ class LogSpacedRandomCountMultipleDipoleFixedMagnitudeXYModel(DipoleModel):
 			rng = rng_to_use
 
 		shape = (monte_carlo_n, self.n_max)
-		theta = 2 * numpy.pi * rng.random(shape)
-		phi = numpy.arccos(2 * rng.random(shape) - 1)
+		phi = 2 * numpy.pi * rng.random(shape)
 
 		p_mask = rng.binomial(1, self.prob_occupancy, shape)
 		p_magnitude = self.pfixed * p_mask
 
-		px = p_magnitude * numpy.cos(theta) * numpy.sin(phi)
-		py = p_magnitude * numpy.sin(theta) * numpy.sin(phi)
-		pz = p_magnitude * numpy.cos(phi)
+		px = p_magnitude * numpy.cos(phi)
+		py = p_magnitude * numpy.sin(phi)
+		pz = p_magnitude * 0
 
 		sx = rng.uniform(self.xmin, self.xmax, shape)
 		sy = rng.uniform(self.ymin, self.ymax, shape)
