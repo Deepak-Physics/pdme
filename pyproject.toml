@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pdme"
-version = "0.8.6"
+version = "0.8.7"
 description = "Python dipole model evaluator"
 authors = ["Deepak <dmallubhotla+github@gmail.com>"]
 license = "GPL-3.0-only"

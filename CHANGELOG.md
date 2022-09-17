@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.7](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.6...0.8.7) (2022-09-17)
+
+
+### Features
+
+* adds xy model for convenience to pdme ([e894c89](https://gitea.deepak.science:2222/physics/pdme/commit/e894c897029c05a1d4754e7930ae9ba2be7a1cfd))
+* moves xy model up to model package ([2a1ae3b](https://gitea.deepak.science:2222/physics/pdme/commit/2a1ae3b1a7f7e10469b7fd2930fee0b338f0c03f))
+
+
+### Bug Fixes
+
+* Correctly generates monte carlo version of xy model dipoles ([5acf0ac](https://gitea.deepak.science:2222/physics/pdme/commit/5acf0ac347382705674bb596440d27cba3730bac))
+
 ### [0.8.6](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.5...0.8.6) (2022-06-13)
 
 
