@@ -132,4 +132,3 @@ def test_fast_v_calc_asymmetric_multidipoles_but_symmetric():
 		expected,
 		err_msg="Voltages at dot aren't as expected for multidipole calc.",
 	)
-
