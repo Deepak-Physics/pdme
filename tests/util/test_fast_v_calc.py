@@ -107,3 +107,28 @@ def test_between():
 	expected = numpy.array([False, False, True])
 
 	numpy.testing.assert_array_equal(actual, expected, err_msg="Between calc wrong")
+
+
+def test_fast_v_calc_asymmetric_multidipoles_but_symmetric():
+	# expected format is [px, py, pz, sx, sy, sz, e1, e2, w]
+	d1 = [1, 2, 3, 4, 5, 6, 1, 1, 7 / 2]
+	d2 = [2, 5, 3, 4, -5, -6, 2, 2, 2 / 2]
+
+	dipoles = numpy.array([[d1, d2]])
+
+	dot_inputs = numpy.array([[-1, -1, -1, 11], [2, 3, 1, 5.5]])
+	# expected_ij is for dot i, dipole j
+	expected_11 = 0.00001421963287022476
+	expected_12 = 0.00001107180225755457
+	expected_21 = 0.000345021108583681380388722
+	expected_22 = 0.0000377061050587914705139781
+
+	expected = numpy.array([[expected_11 + expected_12, expected_21 + expected_22]])
+
+	numpy.testing.assert_allclose(
+		pdme.util.fast_v_calc.fast_vs_for_asymmetric_dipoleses(
+			dot_inputs, dipoles, 1e10
+		),
+		expected,
+		err_msg="Voltages at dot aren't as expected for multidipole calc.",
+	)
