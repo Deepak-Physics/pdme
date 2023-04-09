@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.8](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.7...0.8.8) (2023-04-09)
+
+
+### Features
+
+* adds fast calc that allows for variable temp ([36454d5](https://gitea.deepak.science:2222/physics/pdme/commit/36454d5044d93b6b178e016b84dd59a5ebaf15e2))
+
 ### [0.8.7](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.6...0.8.7) (2022-09-17)
 
 
