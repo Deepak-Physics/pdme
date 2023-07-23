@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.9](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.8...0.8.9) (2023-07-23)
+
+
+### Features
+
+* adds a bunch of mcmc generation code for log spaced models, yay ([f280448](https://gitea.deepak.science:2222/physics/pdme/commit/f280448cfe2fcf5bdc5ac2317ee52b27523bb49d))
+* adds utility functions for dealing with markov chain monte carlo ([feb0a5f](https://gitea.deepak.science:2222/physics/pdme/commit/feb0a5f6453dcb5e71a07c7749cd579dab15171c))
+
 ### [0.8.8](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.7...0.8.8) (2023-04-09)
 
 
