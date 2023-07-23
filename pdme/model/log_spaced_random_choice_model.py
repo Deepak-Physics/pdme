@@ -5,6 +5,8 @@ from pdme.measurement import (
 	OscillatingDipole,
 	OscillatingDipoleArrangement,
 )
+import pdme.subspace_simulation
+from typing import Optional
 
 
 class LogSpacedRandomCountMultipleDipoleFixedMagnitudeModel(DipoleModel):
@@ -125,3 +127,73 @@ class LogSpacedRandomCountMultipleDipoleFixedMagnitudeModel(DipoleModel):
 		w = 10 ** rng.uniform(self.wexp_min, self.wexp_max, shape)
 
 		return numpy.stack([px, py, pz, sx, sy, sz, w], axis=-1)
+
+	def markov_chain_monte_carlo_proposal(
+		self,
+		dipole: numpy.ndarray,
+		stdev: pdme.subspace_simulation.DipoleStandardDeviation,
+		rng_arg: Optional[numpy.random.Generator] = None,
+	) -> numpy.ndarray:
+		if rng_arg is None:
+			rng_to_use = self.rng
+		else:
+			rng_to_use = rng_arg
+
+		px = dipole[0]
+		py = dipole[1]
+		pz = dipole[2]
+		theta = numpy.arccos(pz / self.pfixed)
+		phi = numpy.arctan2(py, px)
+
+		# need to step phi, theta, rx, ry, rz, w
+		# then p^\ast is 1/(2 phi_step) and Delta = phi_step(2 * {0, 1} - 1)
+		delta_phi = stdev.p_phi_step * rng_to_use.uniform(-1, 1)
+		tentative_phi = phi + delta_phi
+
+		# theta
+		delta_theta = stdev.p_theta_step * rng_to_use.uniform(-1, 1)
+		r = (numpy.sin(theta + delta_theta)) / (numpy.sin(theta))
+		if r > rng_to_use.uniform(0, 1):
+			tentative_theta = theta + delta_theta
+		else:
+			tentative_theta = theta
+
+		tentative_px = (
+			self.pfixed * numpy.sin(tentative_theta) * numpy.cos(tentative_phi)
+		)
+		tentative_py = (
+			self.pfixed * numpy.sin(tentative_theta) * numpy.sin(tentative_phi)
+		)
+		tentative_pz = self.pfixed * numpy.cos(tentative_theta)
+
+		rx = dipole[3]
+		ry = dipole[4]
+		rz = dipole[5]
+
+		tentative_rx = rx + stdev.rx_step * rng_to_use.uniform(-1, 1)
+		if tentative_rx < self.xmin or tentative_rx > self.xmax:
+			tentative_rx = rx
+
+		tentative_ry = ry + stdev.ry_step * rng_to_use.uniform(-1, 1)
+		if tentative_ry < self.ymin or tentative_ry > self.ymax:
+			tentative_ry = ry
+		tentative_rz = rz + stdev.rz_step * rng_to_use.uniform(-1, 1)
+		if tentative_rz < self.zmin or tentative_rz > self.zmax:
+			tentative_rz = rz
+
+		w = dipole[6]
+		tentative_w = numpy.exp(
+			numpy.log(w) + (stdev.w_log_step * rng_to_use.uniform(-1, 1))
+		)
+		tentative_dip = numpy.array(
+			[
+				tentative_px,
+				tentative_py,
+				tentative_pz,
+				tentative_rx,
+				tentative_ry,
+				tentative_rz,
+				tentative_w,
+			]
+		)
+		return tentative_dip

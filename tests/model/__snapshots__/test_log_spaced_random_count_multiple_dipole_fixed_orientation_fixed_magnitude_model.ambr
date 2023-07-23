@@ -1,0 +1,31 @@
+# serializer version: 1
+# name: test_random_count_multiple_dipole_fixed_or_fixed_mag_model_get_n_dipoles
+  list([
+    list([
+      list([
+        10.0,
+        0.0,
+        6.123233995736766e-16,
+        -2.3960852996076447,
+        4.232462337639554,
+        2.2616924238635443,
+        39.399008444891905,
+      ]),
+    ]),
+  ])
+# ---
+# name: test_random_count_multiple_dipole_fixed_or_fixed_mag_model_get_n_dipoles.1
+  list([
+    list([
+      list([
+        10.0,
+        0.0,
+        6.123233995736766e-16,
+        -2.3960852996076447,
+        4.232462337639554,
+        2.2616924238635443,
+        39.399008444891905,
+      ]),
+    ]),
+  ])
+# ---

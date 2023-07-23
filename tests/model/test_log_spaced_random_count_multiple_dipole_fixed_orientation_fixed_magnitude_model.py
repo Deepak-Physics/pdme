@@ -115,7 +115,7 @@ def test_random_count_multiple_dipole_fixed_mag_model_get_dipoles_invariant():
 			)
 
 
-def test_random_count_multiple_dipole_fixed_or_fixed_mag_model_get_n_dipoles():
+def test_random_count_multiple_dipole_fixed_or_fixed_mag_model_get_n_dipoles(snapshot):
 	# TODO: this test is a bit garbage just calls things without testing.
 	x_min = -10
 	x_max = 10
@@ -145,7 +145,9 @@ def test_random_count_multiple_dipole_fixed_or_fixed_mag_model_get_n_dipoles():
 	)
 	model.rng = numpy.random.default_rng(1234)
 
-	model.get_monte_carlo_dipole_inputs(1, max_frequency)
-	model.get_monte_carlo_dipole_inputs(
+	actual_inputs = model.get_monte_carlo_dipole_inputs(1, max_frequency)
+	assert actual_inputs.tolist() == snapshot
+	actual_monte_carlo_inputs = model.get_monte_carlo_dipole_inputs(
 		1, max_frequency, numpy.random.default_rng(1234)
 	)
+	assert actual_monte_carlo_inputs.tolist() == snapshot

@@ -39,6 +39,15 @@ test() {
 	fi
 }
 
+updatesnap() {
+	echo "I am ${FUNCNAME[0]}ing"
+	if [[ "${DO_NIX_CUSTOM:=0}" -eq 1 ]]; then
+		pytest --snapshot-update
+	else
+		poetry run pytest --snapshot-update
+	fi
+}
+
 htmlcov() {
 	if [[ "${DO_NIX_CUSTOM:=0}" -eq 1 ]]; then
 		pytest --cov-report=html

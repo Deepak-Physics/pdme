@@ -1,0 +1,22 @@
+# serializer version: 1
+# name: test_return_four
+  DipoleStandardDeviation(p_phi_step=1, p_theta_step=2, rx_step=3, ry_step=4, rz_step=5, w_log_step=6)
+# ---
+# name: test_return_four.1
+  DipoleStandardDeviation(p_phi_step=10, p_theta_step=20, rx_step=30, ry_step=40, rz_step=50, w_log_step=60)
+# ---
+# name: test_return_four.2
+  DipoleStandardDeviation(p_phi_step=0.1, p_theta_step=0.2, rx_step=0.3, ry_step=0.4, rz_step=0.5, w_log_step=0.6)
+# ---
+# name: test_return_four.3
+  DipoleStandardDeviation(p_phi_step=1, p_theta_step=2, rx_step=3, ry_step=4, rz_step=5, w_log_step=6)
+# ---
+# name: test_return_four.4
+  DipoleStandardDeviation(p_phi_step=10, p_theta_step=20, rx_step=30, ry_step=40, rz_step=50, w_log_step=60)
+# ---
+# name: test_return_four.5
+  DipoleStandardDeviation(p_phi_step=0.1, p_theta_step=0.2, rx_step=0.3, ry_step=0.4, rz_step=0.5, w_log_step=0.6)
+# ---
+# name: test_return_one
+  DipoleStandardDeviation(p_phi_step=1, p_theta_step=2, rx_step=3, ry_step=4, rz_step=5, w_log_step=6)
+# ---
