@@ -11,7 +11,5 @@ def test_sort_dipoles_by_freq(snapshot):
 		]
 	)
 
-	actual_sorted = (
-		pdme.subspace_simulation.sort_array_of_dipoles_by_frequency(orig)
-	)
+	actual_sorted = pdme.subspace_simulation.sort_array_of_dipoles_by_frequency(orig)
 	assert actual_sorted.tolist() == snapshot

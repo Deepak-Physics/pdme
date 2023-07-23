@@ -1,6 +1,10 @@
 from dataclasses import dataclass
 from typing import Sequence
 import numpy
+from pdme.subspace_simulation.mcmc_costs import (
+	proportional_cost,
+	proportional_costs_vs_actual_measurement,
+)
 
 
 @dataclass
@@ -40,3 +44,12 @@ def sort_array_of_dipoles_by_frequency(configuration) -> numpy.ndarray:
 	Utility function.
 	"""
 	return numpy.array(sorted(configuration, key=lambda l: l[6]))
+
+
+__all__ = [
+	"DipoleStandardDeviation",
+	"MCMCStandardDeviation",
+	"sort_array_of_dipoles_by_frequency",
+	"proportional_cost",
+	"proportional_costs_vs_actual_measurement",
+]
