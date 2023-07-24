@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.2](https://gitea.deepak.science:2222/physics/pdme/compare/0.9.1...0.9.2) (2023-07-24)
+
+
+### Bug Fixes
+
+* update tests but for git also don't wrap costs ([50f98ed](https://gitea.deepak.science:2222/physics/pdme/commit/50f98ed89b2a05cd47c41958036dd50bc872e07c))
+
 ### [0.9.1](https://gitea.deepak.science:2222/physics/pdme/compare/0.9.0...0.9.1) (2023-07-24)
 
 
