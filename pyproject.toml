@@ -29,7 +29,7 @@ testpaths = ["tests"]
 addopts = "--junitxml pytest.xml --cov pdme --cov-report=xml:coverage.xml --cov-fail-under=50 --cov-report=html"
 junit_family = "xunit1"
 log_format = "%(asctime)s | %(levelname)s | %(pathname)s:%(lineno)d | %(message)s"
-log_level = "DEBUG"
+log_level = "WARNING"
 
 [tool.mypy]
 plugins = "numpy.typing.mypy_plugin"

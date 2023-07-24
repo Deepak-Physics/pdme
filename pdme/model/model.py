@@ -89,7 +89,7 @@ class DipoleModel:
 
 				dips.append(tentative_dip)
 			dips_array = pdme.subspace_simulation.sort_array_of_dipoles_by_frequency(dips)
-			tentative_cost = cost_function(numpy.array([dips_array]))
+			tentative_cost = cost_function(numpy.array([dips_array]))[0]
 			if tentative_cost < threshold_cost:
 				chain.append((tentative_cost, dips_array))
 				current = dips_array
