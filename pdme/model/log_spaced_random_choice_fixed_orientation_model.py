@@ -129,12 +129,14 @@ class LogSpacedRandomCountMultipleDipoleFixedMagnitudeFixedOrientationModel(
 
 		p_mask = rng.binomial(1, self.prob_occupancy, shape)
 
-		dipoles = numpy.einsum("ij,k->ijk", p_mask, self.moment_fixed)
+		# dipoles = numpy.einsum("ij,k->ijk", p_mask, self.moment_fixed)
 		# Is there a better way to create the final array? probably! can create a flatter guy then reshape.
 		# this is easier to reason about.
-		px = dipoles[:, :, 0]
-		py = dipoles[:, :, 1]
-		pz = dipoles[:, :, 2]
+		p_magnitude = self.pfixed * p_mask
+
+		px = p_magnitude * numpy.sin(self.thetafixed) * numpy.cos(self.phifixed)
+		py = p_magnitude * numpy.sin(self.thetafixed) * numpy.sin(self.phifixed)
+		pz = p_magnitude * numpy.cos(self.thetafixed)
 
 		sx = rng.uniform(self.xmin, self.xmax, shape)
 		sy = rng.uniform(self.ymin, self.ymax, shape)

@@ -72,24 +72,24 @@ class DipoleModel:
 			f"Starting Markov Chain Monte Carlo with seed: {seed} for chain length {chain_length} and provided stdevs {stdevs}"
 		)
 		chain: List[Tuple[float, numpy.ndarray]] = []
-		current = seed
 		if initial_cost is None:
-			current_cost = cost_function(current)
+			current_cost = cost_function(numpy.array([seed]))
 		else:
 			current_cost = initial_cost
+		current = seed
 		for i in range(chain_length):
 			dips = []
 			for dipole_index, dipole in enumerate(current):
+				_logger.debug(dipole_index)
+				_logger.debug(dipole)
 				stdev = stdevs[dipole_index]
 				tentative_dip = self.markov_chain_monte_carlo_proposal(
 					dipole, stdev, rng_arg
 				)
 
 				dips.append(tentative_dip)
-			dips_array = pdme.subspace_simulation.sort_array_of_dipoles_by_frequency(
-				dips
-			)
-			tentative_cost = cost_function(dips_array)
+			dips_array = pdme.subspace_simulation.sort_array_of_dipoles_by_frequency(dips)
+			tentative_cost = cost_function(numpy.array([dips_array]))
 			if tentative_cost < threshold_cost:
 				chain.append((tentative_cost, dips_array))
 				current = dips_array

@@ -116,7 +116,6 @@ def test_random_count_multiple_dipole_fixed_mag_model_get_dipoles_invariant():
 
 
 def test_random_count_multiple_dipole_fixed_or_fixed_mag_model_get_n_dipoles(snapshot):
-	# TODO: this test is a bit garbage just calls things without testing.
 	x_min = -10
 	x_max = 10
 	y_min = -5

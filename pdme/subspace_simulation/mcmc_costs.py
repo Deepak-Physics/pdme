@@ -15,6 +15,6 @@ def proportional_costs_vs_actual_measurement(
 	dipoles_to_test: numpy.ndarray,
 ) -> numpy.ndarray:
 	vals = pdme.util.fast_v_calc.fast_vs_for_dipoleses(
-		dot_inputs_array, numpy.array([dipoles_to_test])
+		dot_inputs_array, dipoles_to_test
 	)
 	return proportional_cost(actual_measurement_array, vals)
