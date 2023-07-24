@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.1](https://gitea.deepak.science:2222/physics/pdme/compare/0.9.0...0.9.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* fixes some of the shape mangling of our mcmc code ([e01d0e1](https://gitea.deepak.science:2222/physics/pdme/commit/e01d0e14a9bcd6d7e8fe9449ce562dbf1b8fd25c))
+
 ## [0.9.0](https://gitea.deepak.science:2222/physics/pdme/compare/0.8.9...0.9.0) (2023-07-24)
 
 
