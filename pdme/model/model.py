@@ -47,6 +47,7 @@ class DipoleModel:
 		seed,
 		cost_function,
 		chain_length,
+		threshold_cost: float,
 		stdevs: pdme.subspace_simulation.MCMCStandardDeviation,
 		initial_cost: Optional[float] = None,
 		rng_arg: Optional[numpy.random.Generator] = None,
@@ -73,10 +74,9 @@ class DipoleModel:
 		chain: List[Tuple[float, numpy.ndarray]] = []
 		current = seed
 		if initial_cost is None:
-			cost_to_compare = cost_function(current)
+			current_cost = cost_function(current)
 		else:
-			cost_to_compare = initial_cost
-		current_cost = cost_to_compare
+			current_cost = initial_cost
 		for i in range(chain_length):
 			dips = []
 			for dipole_index, dipole in enumerate(current):
@@ -90,7 +90,7 @@ class DipoleModel:
 				dips
 			)
 			tentative_cost = cost_function(dips_array)
-			if tentative_cost < cost_to_compare:
+			if tentative_cost < threshold_cost:
 				chain.append((tentative_cost, dips_array))
 				current = dips_array
 				current_cost = tentative_cost

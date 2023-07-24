@@ -92,7 +92,7 @@ def test_log_spaced_fixed_orientation_mcmc_basic(snapshot):
 	stdevs = pdme.subspace_simulation.MCMCStandardDeviation([stdev])
 
 	chain = model.get_mcmc_chain(
-		seed, cost_function, 10, stdevs, rng_arg=numpy.random.default_rng(1515)
+		seed, cost_function, 10, cost_function(seed)[0], stdevs, rng_arg=numpy.random.default_rng(1515)
 	)
 
 	assert chain == snapshot
