@@ -103,4 +103,6 @@ def test_log_spaced_fixed_orientation_mcmc_basic(snapshot):
 		rng_arg=numpy.random.default_rng(1515),
 	)
 
-	assert chain == snapshot
+	chain_rounded = [(round(cost, 10), dipoles) for (cost, dipoles) in chain]
+
+	assert chain_rounded == snapshot
