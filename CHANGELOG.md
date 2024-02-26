@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.3](https://gitea.deepak.science:2222/physics/pdme/compare/0.9.2...0.9.3) (2024-02-26)
+
+
+### Features
+
+* adds util func for calculating arg using sign instead of complex arithmetic ([3ebe2bb](https://gitea.deepak.science:2222/physics/pdme/commit/3ebe2bb82430d677680383c42a1c269df83d99cd))
+
+
+### Bug Fixes
+
+* fixes stupid cost shape issue ([ed9dd2c](https://gitea.deepak.science:2222/physics/pdme/commit/ed9dd2c94f88a08c36f581f05b26a87a6b780d5b))
+
 ### [0.9.2](https://gitea.deepak.science:2222/physics/pdme/compare/0.9.1...0.9.2) (2023-07-24)
 
 
