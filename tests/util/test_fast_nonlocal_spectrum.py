@@ -53,3 +53,11 @@ def test_fast_nonlocal_frequency_check():
 
 	with pytest.raises(ValueError):
 		pdme.util.fast_nonlocal_spectrum.fast_s_nonlocal(dot_pairs, dipoles)
+
+
+def test_arg(snapshot):
+
+	test_input = numpy.array([[1, 2, 3], [-1, 1, 3], [3, 5, -1]])
+
+	actual_result = pdme.util.fast_nonlocal_spectrum.signarg(test_input)
+	assert actual_result.tolist() == snapshot

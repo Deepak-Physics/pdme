@@ -98,3 +98,11 @@ def fast_s_nonlocal_dipoleses(
 
 	_logger.debug(f"Raw pair calc: [{alphses1 * alphses2 * bses}]")
 	return numpy.einsum("...j->...", alphses1 * alphses2 * bses)
+
+
+def signarg(x, **kwargs):
+	"""
+	uses numpy.sign to implement Arg for real numbers only. Should return pi for negative inputs, 0 for positive.
+	Passes through args to numpy.sign
+	"""
+	return numpy.pi * (numpy.sign(x, **kwargs) - 1) / (-2)
