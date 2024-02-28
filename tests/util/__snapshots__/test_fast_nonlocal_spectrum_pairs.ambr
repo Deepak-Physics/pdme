@@ -1,0 +1,13 @@
+# serializer version: 1
+# name: test_fast_nonlocal_calc_multidipole_phase_snapshot
+  list([
+    list([
+      -0.0,
+      -0.0,
+    ]),
+    list([
+      -0.0,
+      3.141592653589793,
+    ]),
+  ])
+# ---

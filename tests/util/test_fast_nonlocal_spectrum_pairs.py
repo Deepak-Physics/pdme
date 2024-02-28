@@ -53,3 +53,24 @@ def test_fast_nonlocal_frequency_check_multidipole():
 
 	with pytest.raises(ValueError):
 		pdme.util.fast_nonlocal_spectrum.fast_s_nonlocal_dipoleses(dot_pairs, dipoles)
+
+
+def test_fast_nonlocal_calc_multidipole_phase_snapshot(snapshot):
+	d1 = [1, 2, 3, 4, 5, 6, 7]
+	d2 = [1, 2, 3, 4, 5, 6, 8]
+	d3 = [2, 5, 3, 4, -5, -6, 2]
+	d4 = [-3, 2, 1, 4, 5, 6, 10]
+
+	dipoleses = numpy.array([[d1, d2], [d3, d4]])
+
+	dot_pairs = numpy.array(
+		[[[-1, -2, -3, 11], [-1, 2, 5, 11]], [[-1, -2, -3, 6], [2, 4, 6, 6]]]
+	)
+
+	# this is a bit silly but just set the logger to debug so that the coverage stats don't get affected by the debug statements.
+	pdme.util.fast_nonlocal_spectrum._logger.setLevel(logging.DEBUG)
+
+	actual_phases = pdme.util.fast_nonlocal_spectrum.signarg(
+		pdme.util.fast_nonlocal_spectrum.fast_s_nonlocal_dipoleses(dot_pairs, dipoleses)
+	)
+	assert actual_phases.tolist() == snapshot
