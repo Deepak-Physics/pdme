@@ -152,15 +152,15 @@ def fast_s_spin_qubit_tarucha_nonlocal_dipoleses(
 	diffses1 = r1s[:, None] - ss[:, None, :]
 	diffses2 = r2s[:, None] - ss[:, None, :]
 	if _logger.isEnabledFor(logging.DEBUG):
-		_logger.warning(f"diffses1: {diffses1}")
-		_logger.warning(f"diffses2: {diffses2}")
+		_logger.debug(f"diffses1: {diffses1}")
+		_logger.debug(f"diffses2: {diffses2}")
 
 	# norms takes out axis 3, the last one, giving [A, measurement_idx, j]
 	norms1 = numpy.linalg.norm(diffses1, axis=3)
 	norms2 = numpy.linalg.norm(diffses2, axis=3)
 	if _logger.isEnabledFor(logging.DEBUG):
-		_logger.warning(f"norms1: {norms1}")
-		_logger.warning(f"norms2: {norms2}")
+		_logger.debug(f"norms1: {norms1}")
+		_logger.debug(f"norms2: {norms2}")
 
 	# _logger.info(f"norms1: {norms1}")
 	# _logger.info(f"norms1 shape: {norms1.shape}")
@@ -215,14 +215,14 @@ def fast_s_spin_qubit_tarucha_nonlocal_dipoleses(
 		- ps[:, numpy.newaxis, :, 0]
 	) / (norms2**3)
 	if _logger.isEnabledFor(logging.DEBUG):
-		_logger.warning(f"alphses1: {alphses1}")
-		_logger.warning(f"alphses2: {alphses2}")
+		_logger.debug(f"alphses1: {alphses1}")
+		_logger.debug(f"alphses2: {alphses2}")
 
 	bses = (1 / numpy.pi) * (ws[:, None, :] / (f1s[:, None] ** 2 + ws[:, None, :] ** 2))
 	if _logger.isEnabledFor(logging.DEBUG):
-		_logger.warning(f"bses: {bses}")
+		_logger.debug(f"bses: {bses}")
 
-	_logger.warning(f"Raw pair calc: [{alphses1 * alphses2 * bses}]")
+	_logger.debug(f"Raw pair calc: [{alphses1 * alphses2 * bses}]")
 	return numpy.einsum("...j->...", alphses1 * alphses2 * bses)
 
 
