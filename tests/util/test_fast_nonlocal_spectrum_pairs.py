@@ -3,6 +3,8 @@ import pdme.util.fast_nonlocal_spectrum
 import logging
 import pytest
 
+_logger = logging.getLogger(__name__)
+
 
 def test_fast_nonlocal_calc_multidipole():
 	d1 = [1, 2, 3, 4, 5, 6, 7]
@@ -74,3 +76,23 @@ def test_fast_nonlocal_calc_multidipole_phase_snapshot(snapshot):
 		pdme.util.fast_nonlocal_spectrum.fast_s_nonlocal_dipoleses(dot_pairs, dipoleses)
 	)
 	assert actual_phases.tolist() == snapshot
+
+
+def test_fast_spin_qubit_frequency_tarucha_calc(snapshot):
+	d1 = [1, 2, 3, 0, 0, 0, 5]
+	d2 = [6, 7, 8, 5, 4, 3, 8]
+	dipoleses = numpy.array([[d1], [d2]])
+
+	dot_pairs = numpy.array(
+		[[[1, 0, 0, 1], [1, 0, 0, 1]], [[1, 0, 0, 1], [3, 0, 0, 1]]]
+	)
+
+	actual = (
+		pdme.util.fast_nonlocal_spectrum.fast_s_spin_qubit_tarucha_nonlocal_dipoleses(
+			dot_pairs, dipoleses
+		)
+	)
+
+	pdme.util.fast_nonlocal_spectrum._logger.setLevel(logging.DEBUG)
+	_logger.info(actual)
+	assert actual.tolist() == snapshot
