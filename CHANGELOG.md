@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://gitea.deepak.science:2222/physics/pdme/compare/0.9.3...1.0.0) (2024-04-29)
+
+
+### Bug Fixes
+
+* fixes the broken implementation of the tarucha frequency calculation ([631ba13](https://gitea.deepak.science:2222/physics/pdme/commit/631ba13c791c71ad8922d39a13b780a40eac2391))
+
 ### [0.9.3](https://gitea.deepak.science:2222/physics/pdme/compare/0.9.2...0.9.3) (2024-02-26)
 
 
