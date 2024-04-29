@@ -1,4 +1,4 @@
-const pattern = /(\[tool\.poetry\]\nname = "pdme"\nversion = ")(?<vers>\d+\.\d+\.\d)(")/mg;
+const pattern = /(\[tool\.poetry\]\nname = "pdme"\nversion = ")(?<vers>\d+\.\d+\.\d+)(")/mg;
 
 module.exports.readVersion = function (contents) {
 	const result = pattern.exec(contents);
