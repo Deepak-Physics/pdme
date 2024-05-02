@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://gitea.deepak.science:2222/physics/pdme/compare/1.0.0...1.1.0) (2024-05-02)
+
+
+### Features
+
+* adds both electric potential and electric field x sources, makes some fast util tests use the slower explicit versions as double check ([e9e3416](https://gitea.deepak.science:2222/physics/pdme/commit/e9e34162a3b84faad5c18ddeda327c2f7f5ac5aa))
+
 ## [1.0.0](https://gitea.deepak.science:2222/physics/pdme/compare/0.9.3...1.0.0) (2024-04-29)
 
 
