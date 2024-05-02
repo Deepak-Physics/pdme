@@ -34,6 +34,16 @@ test: fmt
 		poetry run pytest
 	fi
 
+# update all test snapshots, use if snapshots are out of date
+update-snapshots:
+		#!/usr/bin/env bash
+		set -euxo pipefail
+		if [[ "${DO_NIX_CUSTOM:=0}" -eq 1 ]]; then
+				pytest --snapshot-update
+		else
+				poetry run pytest --snapshot-update
+		fi
+
 # format code
 fmt:
 	#!/usr/bin/env bash
