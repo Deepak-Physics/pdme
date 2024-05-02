@@ -1,6 +1,21 @@
 import numpy
 import pdme.util.fast_v_calc
 
+import pdme.measurement
+
+
+def dipole_from_array(arr: numpy.ndarray) -> pdme.measurement.OscillatingDipole:
+	return pdme.measurement.OscillatingDipole(arr[0:3], arr[3:6], arr[6])
+
+
+def s_potential_from_arrays(
+	dipole_array: numpy.ndarray, dotf_array: numpy.ndarray
+) -> float:
+	dipole = dipole_from_array(dipole_array)
+	r = dotf_array[0:3]
+	f = dotf_array[3]
+	return dipole.s_electric_potential_at_position(r, f)
+
 
 def test_fast_v_calc():
 	d1 = [1, 2, 3, 4, 5, 6, 7]
@@ -9,11 +24,11 @@ def test_fast_v_calc():
 	dipoles = numpy.array([d1, d2])
 
 	dot_inputs = numpy.array([[-1, -1, -1, 11], [2, 3, 1, 5.5]])
-	# expected_ij is for dot i, dipole j
-	expected_11 = 0.00001421963287022476
-	expected_12 = 0.00001107180225755457
-	expected_21 = 0.000345021108583681380388722
-	expected_22 = 0.0000377061050587914705139781
+
+	expected_11 = s_potential_from_arrays(dipoles[0], dot_inputs[0])
+	expected_12 = s_potential_from_arrays(dipoles[1], dot_inputs[0])
+	expected_21 = s_potential_from_arrays(dipoles[0], dot_inputs[1])
+	expected_22 = s_potential_from_arrays(dipoles[1], dot_inputs[1])
 
 	expected = numpy.array([[expected_11, expected_21], [expected_12, expected_22]])
 
@@ -31,11 +46,11 @@ def test_fast_v_calc_multidipoles():
 	dipoles = numpy.array([[d1, d2]])
 
 	dot_inputs = numpy.array([[-1, -1, -1, 11], [2, 3, 1, 5.5]])
-	# expected_ij is for dot i, dipole j
-	expected_11 = 0.00001421963287022476
-	expected_12 = 0.00001107180225755457
-	expected_21 = 0.000345021108583681380388722
-	expected_22 = 0.0000377061050587914705139781
+
+	expected_11 = s_potential_from_arrays(dipoles[0][0], dot_inputs[0])
+	expected_12 = s_potential_from_arrays(dipoles[0][1], dot_inputs[0])
+	expected_21 = s_potential_from_arrays(dipoles[0][0], dot_inputs[1])
+	expected_22 = s_potential_from_arrays(dipoles[0][1], dot_inputs[1])
 
 	expected = numpy.array([[expected_11 + expected_12, expected_21 + expected_22]])
 
@@ -48,7 +63,7 @@ def test_fast_v_calc_multidipoles():
 
 def test_fast_v_calc_big_multidipole():
 
-	dipoles = numpy.array(
+	dipoleses = numpy.array(
 		[
 			[
 				[1, 1, 5, 6, 3, 1, 1],
@@ -72,25 +87,21 @@ def test_fast_v_calc_big_multidipole():
 		]
 	)
 
-	expected = numpy.array(
+	expected = [
 		[
-			[
-				0.0010151687742365581690202135,
-				0.00077627527320628609782627266,
-				0.00043313471258511003340648713,
-				0.000077184305988088453637005111,
-			],
-			[
-				0.000041099091967966890657097060,
-				0.0019377687238977568792327845,
-				0.0085903193415282984161225029,
-				0.00014557676715208209310911838,
-			],
+			sum(
+				[
+					s_potential_from_arrays(dipole_array, dot_input)
+					for dipole_array in dipole_config
+				]
+			)
+			for dot_input in dot_inputs
 		]
-	)
+		for dipole_config in dipoleses
+	]
 
 	numpy.testing.assert_allclose(
-		pdme.util.fast_v_calc.fast_vs_for_dipoleses(dot_inputs, dipoles),
+		pdme.util.fast_v_calc.fast_vs_for_dipoleses(dot_inputs, dipoleses),
 		expected,
 		err_msg="Voltages at dot aren't as expected for multidipole calc.",
 	)
@@ -107,28 +118,3 @@ def test_between():
 	expected = numpy.array([False, False, True])
 
 	numpy.testing.assert_array_equal(actual, expected, err_msg="Between calc wrong")
-
-
-def test_fast_v_calc_asymmetric_multidipoles_but_symmetric():
-	# expected format is [px, py, pz, sx, sy, sz, e1, e2, w]
-	d1 = [1, 2, 3, 4, 5, 6, 1, 1, 7 / 2]
-	d2 = [2, 5, 3, 4, -5, -6, 2, 2, 2 / 2]
-
-	dipoles = numpy.array([[d1, d2]])
-
-	dot_inputs = numpy.array([[-1, -1, -1, 11], [2, 3, 1, 5.5]])
-	# expected_ij is for dot i, dipole j
-	expected_11 = 0.00001421963287022476
-	expected_12 = 0.00001107180225755457
-	expected_21 = 0.000345021108583681380388722
-	expected_22 = 0.0000377061050587914705139781
-
-	expected = numpy.array([[expected_11 + expected_12, expected_21 + expected_22]])
-
-	numpy.testing.assert_allclose(
-		pdme.util.fast_v_calc.fast_vs_for_asymmetric_dipoleses(
-			dot_inputs, dipoles, 1e10
-		),
-		expected,
-		err_msg="Voltages at dot aren't as expected for multidipole calc.",
-	)

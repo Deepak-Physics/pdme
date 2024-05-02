@@ -31,7 +31,8 @@ def fast_vs_for_dipoles(
 	ases = (numpy.einsum("...ji, ...i", diffses, ps) / norms) ** 2
 	_logger.debug(f"ases: {ases}")
 
-	bses = (1 / numpy.pi) * (ws[:, None] / (fs**2 + ws[:, None] ** 2))
+	bses = 2 * ws[:, None] / ((numpy.pi * fs) ** 2 + ws[:, None] ** 2)
+
 	_logger.debug(f"bses: {bses}")
 	return ases * bses
 
@@ -64,7 +65,7 @@ def fast_vs_for_dipoleses(
 	ases = (numpy.einsum("abcd,acd->abc", diffses, ps) / norms) ** 2
 	_logger.debug(f"ases: {ases}")
 
-	bses = (1 / numpy.pi) * (ws[:, None, :] / (fs[:, None] ** 2 + ws[:, None, :] ** 2))
+	bses = 2 * ws[:, None, :] / ((numpy.pi * fs[:, None]) ** 2 + ws[:, None, :] ** 2)
 	_logger.debug(f"bses: {bses}")
 	return numpy.einsum("...j->...", ases * bses)
 
@@ -92,6 +93,9 @@ def fast_vs_for_asymmetric_dipoleses(
 
 	diffses = rs[:, None] - ss[:, None, :]
 
+	_logger.warning(
+		"This method is very likely to be broken, and should not be used without more thought"
+	)
 	w1s = numpy.exp(-e1s / temp) * raw_ws
 	w2s = numpy.exp(-e2s / temp) * raw_ws
 
@@ -105,7 +109,7 @@ def fast_vs_for_asymmetric_dipoleses(
 
 	ases = (numpy.einsum("abcd,acd->abc", diffses, ps) / norms) ** 2
 
-	bses = (1 / numpy.pi) * (ws[:, None, :] / (fs[:, None] ** 2 + ws[:, None, :] ** 2))
+	bses = ws[:, None, :] / ((numpy.pi * fs[:, None]) ** 2 + ws[:, None, :] ** 2)
 
 	return numpy.einsum("...j->...", ases * bses)
 

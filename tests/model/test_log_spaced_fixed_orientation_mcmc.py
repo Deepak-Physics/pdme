@@ -47,7 +47,7 @@ def get_cost_function():
 	dot_input_array = pdme.measurement.input_types.dot_inputs_to_array(dot_inputs)
 
 	actual_dipoles = model.get_dipoles(0, numpy.random.default_rng(SEED_TO_USE))
-	actual_measurements = actual_dipoles.get_dot_measurements(dot_inputs)
+	actual_measurements = actual_dipoles.get_potential_dot_measurements(dot_inputs)
 	actual_measurements_array = numpy.array([m.v for m in actual_measurements])
 
 	def cost_to_use(sample_dipoleses: numpy.ndarray) -> numpy.ndarray:

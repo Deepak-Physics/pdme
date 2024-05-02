@@ -1,7 +1,22 @@
 import numpy
 import pdme.util.fast_nonlocal_spectrum
+import pdme.measurement
 import logging
 import pytest
+
+
+def dipole_from_array(arr: numpy.ndarray) -> pdme.measurement.OscillatingDipole:
+	return pdme.measurement.OscillatingDipole(arr[0:3], arr[3:6], arr[6])
+
+
+def s_potential_from_arrays(
+	dipole_array: numpy.ndarray, dotf_pair_array: numpy.ndarray
+) -> float:
+	dipole = dipole_from_array(dipole_array)
+	r1 = dotf_pair_array[0][0:3]
+	f1 = dotf_pair_array[0][3]
+	r2 = dotf_pair_array[1][0:3]
+	return dipole.s_electric_potential_for_dot_pair(r1, r2, f1)
 
 
 def test_fast_nonlocal_calc():
@@ -16,21 +31,11 @@ def test_fast_nonlocal_calc():
 		[[[-1, -2, -3, 11], [-1, 2, 5, 11]], [[-1, -2, -3, 6], [2, 4, 6, 6]]]
 	)
 	# expected_ij is for pair i, dipole j
-	expected_11 = 0.000021124454334947546213
-	expected_12 = 0.000022184755131682365135
-	expected_13 = 0.0000053860643617855849275
-	expected_14 = -0.0000023069501696755220764
-	expected_21 = 0.00022356021100884617796
-	expected_22 = 0.00021717277640859343002
-	expected_23 = 0.000017558321044891869169
-	expected_24 = -0.000034714318479634499683
 
 	expected = numpy.array(
 		[
-			[expected_11, expected_21],
-			[expected_12, expected_22],
-			[expected_13, expected_23],
-			[expected_14, expected_24],
+			[s_potential_from_arrays(dipole_array, dot_pair) for dot_pair in dot_pairs]
+			for dipole_array in dipoles
 		]
 	)
 
