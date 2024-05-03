@@ -252,10 +252,15 @@ def fast_s_spin_qubit_tarucha_nonlocal_dipoleses(
 		_logger.debug(f"alphses1: {alphses1}")
 		_logger.debug(f"alphses2: {alphses2}")
 
+	# ws has shape (A, j), so it becomes (A, 1, j) in numerator with the new axis
+	# f1s has shape (m), so we get in the denominator (m, 1) + (A, 1, j)
+	# This becomes (A, m, j)
 	bses = 2 * ws[:, None, :] / ((numpy.pi * f1s[:, None]) ** 2 + ws[:, None, :] ** 2)
 	if _logger.isEnabledFor(logging.DEBUG):
 		_logger.debug(f"bses: {bses}")
 
+	# alphas have (A, 1, j), betas have (A, m, j)
+	# Final result is (A, m, j)
 	_logger.debug(f"Raw pair calc: [{alphses1 * alphses2 * bses}]")
 	return numpy.einsum("...j->...", alphses1 * alphses2 * bses)
 
