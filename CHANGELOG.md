@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://gitea.deepak.science:2222/physics/pdme/compare/1.1.0...1.2.0) (2024-05-03)
+
+
+### Features
+
+* adds pdme fast calc for e field xs ([9e6d1df](https://gitea.deepak.science:2222/physics/pdme/commit/9e6d1df559e58998851a1c2bf24fcc46d8c1b148))
+
 ## [1.1.0](https://gitea.deepak.science:2222/physics/pdme/compare/1.0.0...1.1.0) (2024-05-02)
 
 
