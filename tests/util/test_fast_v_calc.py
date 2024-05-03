@@ -17,6 +17,15 @@ def s_potential_from_arrays(
 	return dipole.s_electric_potential_at_position(r, f)
 
 
+def s_electric_field_x_from_arrays(
+	dipole_array: numpy.ndarray, dotf_array: numpy.ndarray
+) -> float:
+	dipole = dipole_from_array(dipole_array)
+	r = dotf_array[0:3]
+	f = dotf_array[3]
+	return dipole.s_electric_fieldx_at_position(r, f)
+
+
 def test_fast_v_calc():
 	d1 = [1, 2, 3, 4, 5, 6, 7]
 	d2 = [2, 5, 3, 4, -5, -6, 2]
@@ -104,6 +113,96 @@ def test_fast_v_calc_big_multidipole():
 		pdme.util.fast_v_calc.fast_vs_for_dipoleses(dot_inputs, dipoleses),
 		expected,
 		err_msg="Voltages at dot aren't as expected for multidipole calc.",
+	)
+
+
+def test_fast_electric_field_x_calc():
+	d1 = [1, 2, 3, 4, 5, 6, 7]
+	d2 = [2, 5, 3, 4, -5, -6, 2]
+
+	dipoles = numpy.array([d1, d2])
+
+	dot_inputs = numpy.array([[-1, -1, -1, 11], [2, 3, 1, 5.5]])
+
+	expected_11 = s_electric_field_x_from_arrays(dipoles[0], dot_inputs[0])
+	expected_12 = s_electric_field_x_from_arrays(dipoles[1], dot_inputs[0])
+	expected_21 = s_electric_field_x_from_arrays(dipoles[0], dot_inputs[1])
+	expected_22 = s_electric_field_x_from_arrays(dipoles[1], dot_inputs[1])
+
+	expected = numpy.array([[expected_11, expected_21], [expected_12, expected_22]])
+
+	numpy.testing.assert_allclose(
+		pdme.util.fast_v_calc.fast_efieldxs_for_dipoles(dot_inputs, dipoles),
+		expected,
+		err_msg="E x fast calc at dot aren't as expected.",
+	)
+
+
+def test_fast_electric_field_x_calc_multidipoles():
+	d1 = [1, 2, 3, 4, 5, 6, 7]
+	d2 = [2, 5, 3, 4, -5, -6, 2]
+
+	dipoles = numpy.array([[d1, d2]])
+
+	dot_inputs = numpy.array([[-1, -1, -1, 11], [2, 3, 1, 5.5]])
+
+	expected_11 = s_electric_field_x_from_arrays(dipoles[0][0], dot_inputs[0])
+	expected_12 = s_electric_field_x_from_arrays(dipoles[0][1], dot_inputs[0])
+	expected_21 = s_electric_field_x_from_arrays(dipoles[0][0], dot_inputs[1])
+	expected_22 = s_electric_field_x_from_arrays(dipoles[0][1], dot_inputs[1])
+
+	expected = numpy.array([[expected_11 + expected_12, expected_21 + expected_22]])
+
+	numpy.testing.assert_allclose(
+		pdme.util.fast_v_calc.fast_efieldxs_for_dipoleses(dot_inputs, dipoles),
+		expected,
+		err_msg="E x fast calc at dot aren't as expected for multidipole calc.",
+	)
+
+
+def test_fast_electric_field_x_calc_big_multidipole():
+
+	dipoleses = numpy.array(
+		[
+			[
+				[1, 1, 5, 6, 3, 1, 1],
+				[5, 3, 2, 13, 1, 1, 2],
+				[-5, -5, -3, -1, -3, 8, 3],
+			],
+			[
+				[-3, -1, -2, -2, -6, 3, 4],
+				[8, 0, 2, 0, 1, 5, 5],
+				[1, 4, -4, -1, -3, -5, 6],
+			],
+		]
+	)
+
+	dot_inputs = numpy.array(
+		[
+			[1, 1, 0, 1],
+			[2, 5, 6, 2],
+			[3, 1, 3, 3],
+			[0.5, 0.5, 0.5, 4],
+		]
+	)
+
+	expected = [
+		[
+			sum(
+				[
+					s_electric_field_x_from_arrays(dipole_array, dot_input)
+					for dipole_array in dipole_config
+				]
+			)
+			for dot_input in dot_inputs
+		]
+		for dipole_config in dipoleses
+	]
+
+	numpy.testing.assert_allclose(
+		pdme.util.fast_v_calc.fast_efieldxs_for_dipoleses(dot_inputs, dipoleses),
+		expected,
+		err_msg="E x fast calc at dot aren't as expected for multidipole calc.",
 	)
 
 
