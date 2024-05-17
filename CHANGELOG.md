@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://gitea.deepak.science:2222/physics/pdme/compare/1.2.0...1.3.0) (2024-05-17)
+
+
+### Features
+
+* adds utility function for sorting samples by frequency for subspace simulation ([e5fc120](https://gitea.deepak.science:2222/physics/pdme/commit/e5fc1207a8b7d5b67208ad825907baa442eec648))
+
 ## [1.2.0](https://gitea.deepak.science:2222/physics/pdme/compare/1.1.0...1.2.0) (2024-05-03)
 
 
