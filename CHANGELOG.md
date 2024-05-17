@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://gitea.deepak.science:2222/physics/pdme/compare/1.4.0...1.5.0) (2024-05-17)
+
+
+### Features
+
+* adds mcmc chain that returns number of repeats ([6193ecb](https://gitea.deepak.science:2222/physics/pdme/commit/6193ecb9c9f7a21d24e860987a7107549a4b2fa7))
+
 ## [1.4.0](https://gitea.deepak.science:2222/physics/pdme/compare/1.3.0...1.4.0) (2024-05-17)
 
 
