@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://gitea.deepak.science:2222/physics/pdme/compare/1.3.0...1.4.0) (2024-05-17)
+
+
+### Features
+
+* adds relative squared diff calc utility method ([9b1538b](https://gitea.deepak.science:2222/physics/pdme/commit/9b1538b3c63bfaf2a779bb109cd160a8d7887195))
+
 ## [1.3.0](https://gitea.deepak.science:2222/physics/pdme/compare/1.2.0...1.3.0) (2024-05-17)
 
 
