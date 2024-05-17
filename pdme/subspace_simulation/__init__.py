@@ -41,9 +41,28 @@ def sort_array_of_dipoles_by_frequency(configuration) -> numpy.ndarray:
 	Say we have a situation of 2 dipoles, and we've created 8 samples. Then we'll have an (8, 2, 7) numpy array.
 	For each of the 8 samples, we want the 2 dipoles to be in order of frequency.
 
+	This just sorts each sample, the 2x7 array.
+
 	Utility function.
 	"""
 	return numpy.array(sorted(configuration, key=lambda l: l[6]))
+
+
+def sort_array_of_dipoleses_by_frequency(configurations) -> numpy.ndarray:
+	"""
+	Say we have a situation of 2 dipoles, and we've created 8 samples. Then we'll have an (8, 2, 7) numpy array.
+	For each of the 8 samples, we want the 2 dipoles to be in order of frequency.
+
+	This is the wrapper that sorts everything.
+
+	Utility function.
+	"""
+	return numpy.array(
+		[
+			sort_array_of_dipoles_by_frequency(configuration)
+			for configuration in configurations
+		]
+	)
 
 
 __all__ = [
