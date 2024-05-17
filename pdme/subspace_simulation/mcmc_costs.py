@@ -18,3 +18,13 @@ def proportional_costs_vs_actual_measurement(
 		dot_inputs_array, dipoles_to_test
 	)
 	return proportional_cost(actual_measurement_array, vals)
+
+
+def relative_square_diffs(
+	approx: numpy.ndarray, target: numpy.ndarray
+) -> numpy.ndarray:
+	# Assume that both approx and target are arrays of length m
+	# Approx can broadcast if additional indexes to the left
+	# diffs.shape = [ m ]
+	diffs = (approx - target) ** 2 / (target**2)
+	return diffs.sum(axis=-1)
