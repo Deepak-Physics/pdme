@@ -2,12 +2,19 @@
 
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-green.svg?style=flat-square)](https://conventionalcommits.org)
 [![PyPI](https://img.shields.io/pypi/v/pdme?style=flat-square)](https://pypi.org/project/pdme/)
-[![Jenkins](https://img.shields.io/jenkins/build?jobUrl=https%3A%2F%2Fjenkins.deepak.science%2Fjob%2Fgitea-physics%2Fjob%2Fpdme%2Fjob%2Fmaster&style=flat-square)](https://jenkins.deepak.science/job/gitea-physics/job/pdme/job/master/)
-![Jenkins tests](https://img.shields.io/jenkins/tests?compact_message&jobUrl=https%3A%2F%2Fjenkins.deepak.science%2Fjob%2Fgitea-physics%2Fjob%2Fpdme%2Fjob%2Fmaster%2F&style=flat-square)
-![Jenkins Coverage](https://img.shields.io/jenkins/coverage/cobertura?jobUrl=https%3A%2F%2Fjenkins.deepak.science%2Fjob%2Fgitea-physics%2Fjob%2Fpdme%2Fjob%2Fmaster%2F&style=flat-square)
-![Maintenance](https://img.shields.io/maintenance/yes/2024?style=flat-square)
+![Maintenance](https://img.shields.io/maintenance/yes/2025?style=flat-square)
 
 This repo has library code for evaluating dipole models.
+
+## Related libraries
+This library includes a variety of utility functions for calculating charge noise in qubit from TLSs for the purposes of Bayesian analysis.
+New code here should be mostly low-level numpy calculations or common types that can be shared elsewhere.
+
+Other libraries include:
+	- [deepdog](https://gitea.deepak.science/physics/deepdog): performs Monte Carlo simulations with two underlying algorithm options for direct MC and subset simulation
+	- [kalpaa](https://gitea.deepak.science/physics/kalpa): high level wrapper for pdme, deepdog and tantri, implementing retry logic, data transformation and summarising. the place to start to actually run analyses
+	- [tantri](https://gitea.deepak.science/physics/tantri): generates mock telegraph noise and utility functions for binning and transforming measured or simulated power spectral densities (PSDs)
+	- [dreader](https://gitea.deepak.science/physics/dreader): utility library for parsing output files
 
 ## Getting started
 
