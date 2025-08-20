@@ -10,7 +10,7 @@ New code here should be mostly low-level numpy calculations or common types that
 
 ## Related libraries
 
-Other libraries us include:
+Some other libraries I wrote related to this project include:
 - [deepdog](https://gitea.deepak.science/physics/deepdog): performs Monte Carlo simulations with two underlying algorithm options for direct MC and subset simulation
 - [kalpaa](https://gitea.deepak.science/physics/kalpa): high level wrapper for pdme, deepdog and tantri, implementing retry logic, data transformation and summarising. the place to start to actually run analyses
 - [tantri](https://gitea.deepak.science/physics/tantri): generates mock telegraph noise and utility functions for binning and transforming measured or simulated power spectral densities (PSDs)
