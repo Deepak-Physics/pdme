@@ -11,10 +11,10 @@ This library includes a variety of utility functions for calculating charge nois
 New code here should be mostly low-level numpy calculations or common types that can be shared elsewhere.
 
 Other libraries include:
-	- [deepdog](https://gitea.deepak.science/physics/deepdog): performs Monte Carlo simulations with two underlying algorithm options for direct MC and subset simulation
-	- [kalpaa](https://gitea.deepak.science/physics/kalpa): high level wrapper for pdme, deepdog and tantri, implementing retry logic, data transformation and summarising. the place to start to actually run analyses
-	- [tantri](https://gitea.deepak.science/physics/tantri): generates mock telegraph noise and utility functions for binning and transforming measured or simulated power spectral densities (PSDs)
-	- [dreader](https://gitea.deepak.science/physics/dreader): utility library for parsing output files
+- [deepdog](https://gitea.deepak.science/physics/deepdog): performs Monte Carlo simulations with two underlying algorithm options for direct MC and subset simulation
+- [kalpaa](https://gitea.deepak.science/physics/kalpa): high level wrapper for pdme, deepdog and tantri, implementing retry logic, data transformation and summarising. the place to start to actually run analyses
+- [tantri](https://gitea.deepak.science/physics/tantri): generates mock telegraph noise and utility functions for binning and transforming measured or simulated power spectral densities (PSDs)
+- [dreader](https://gitea.deepak.science/physics/dreader): utility library for parsing output files
 
 ## Getting started
 
